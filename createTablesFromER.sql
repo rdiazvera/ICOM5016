@@ -2,6 +2,7 @@ create table User (
 	uid serial primary key, 
 	first_name varchar(20), 
 	last_name varchar(20), 
+	password varchar(20),
 	phone varchar(10), 
 	email varchar(20)
 	)
@@ -42,9 +43,9 @@ create table Reactions (
 	primary key (uid, mid)
 	)
 
-Create table repliesTo(
+create table repliesTo(
 	reply_id integer references Messages(mid), 
 	replied_id integer references Messages(mid), 
-	primary key (mid, mid)
+	primary key (reply_id, replied_id)
 	)
 
