@@ -44,8 +44,8 @@ create table Reactions (
 	)
 
 create table repliesTo(
-	reply_id integer references Messages(mid), 
-	replied_id integer references Messages(mid), 
-	primary key (reply_id, replied_id)
+	reply_mid integer references Messages(mid),
+	replied_mid integer references Messages(mid),
+	primary key (reply_mid, replied_mid)
 	)
 
