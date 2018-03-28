@@ -134,32 +134,32 @@ def statistics():
 
 # Route to trending topics page
 @app.route('/MessagingApp_DB/statistics/trending/')
-def statistics():
+def trendingStatistics():
     return 'Statistics Route: Trending topics via #hashtags'
 
 # Route to message statistics page
 @app.route('/MessagingApp_DB/statistics/messages/')
-def statistics():
+def messagesStatistics():
     return 'Statistics Route: Number of message per day'
 
 # Route to replies statistics page
 @app.route('/MessagingApp_DB/statistics/replies/')
-def statistics():
+def repliesStatistics():
     return 'Statistics Route: Number of replies per day'
 
 # Route to likes statistics page
 @app.route('/MessagingApp_DB/statistics/likes/')
-def statistics():
+def likeStatistics():
     return 'Statistics Route: Number of likes'
 
 # Route to dislikes statistics page
 @app.route('/MessagingApp_DB/statistics/dislikes/')
-def statistics():
+def dislikeStatistics():
     return 'Statistics Route: Number of dislikes'
 
 # Route to active users statistics page
 @app.route('/MessagingApp_DB/statistics/activeusers/')
-def statistics():
+def activeUserstatistics():
     return 'Statistics Route: Active users'
 # Route to get an element from table 'users' searching with an email
 @app.route('/MessagingApp_DB/users/phone/<string:phone>')
