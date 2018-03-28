@@ -25,9 +25,10 @@ class GroupChatDAO:
                 result.append(r)
         return result
 
-    def getGroupChatByOwnerId(self, id):
+    def getGroupChatByOwnerId(self, ownerid):
         result = []
         for r in self.data:
-            if r[2] == id:
+            if r[2] == int(ownerid):
                 result.append(r)
         return result
+
