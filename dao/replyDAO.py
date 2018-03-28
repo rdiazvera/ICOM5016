@@ -1,4 +1,4 @@
-class replyDAO:
+class ReplyDAO:
     def __init__(self):
         M1 = [4, 2, 1]
         M1 = [6, 5, 1]

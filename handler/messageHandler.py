@@ -1,5 +1,5 @@
 from flask import jsonify, request
-from dao.message import MessagesDAO
+from dao.messageDAO import MessagesDAO
 
 
 class messageHandler:
@@ -33,19 +33,12 @@ class messageHandler:
     def getMessageByID(self, mid):
         dao = MessagesDAO()
         result = dao.getMessageByID(mid)
-        mapped_result = []
-        for r in result:
-            mapped_result.append(self.mapToSupDict(r))
-        return jsonify(Messages=mapped_result)
-
-
-      #  dao = MessagesDAO()
-      #  result = dao.getMessageByID(id)
-      #  if result is None:
-      #      return jsonify(Error="NOT FOUND"), 404
-      #  else:
-      #      mapped = self.mapToDict(result)
-      #      return jsonify(Messages=mapped)
+        if result is None:
+            return jsonify(Error="NOT FOUND"), 404
+        else:
+            for r in result:
+                mapped = self.mapToDict(r)
+            return jsonify(Messages=mapped)
 
     def getMessagesByUserID(self, uid):
         dao = MessagesDAO()
