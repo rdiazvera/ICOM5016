@@ -2,6 +2,11 @@
 
 Backend of an application used for messaging in a social context.
 
+## Developers
+* Miguel Negrón
+* Rogelio Díaz
+* Anderson Román
+
 ## Available Routes
 These routes will be use to get data from the database.
 
