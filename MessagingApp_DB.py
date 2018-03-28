@@ -67,6 +67,16 @@ def getAllUsers():
 def getUserById(uid):
     return UserHandler().getUserById(uid)
 
+# Route to get an element from table 'users' searching with an email
+@app.route('/MessagingApp_DB/users/email/<string:email>')
+def getUserByEmail(email):
+    return UserHandler().getUserByEmail(email)
+
+# Route to get an element from table 'users' searching with an phone
+@app.route('/MessagingApp_DB/users/phone/<string:phone>')
+def getUserByphone(phone):
+    return UserHandler().getUserByPhone(phone)
+
 # Route to all elements from table 'GroupChat'
 @app.route('/MessagingApp_DB/groupchats/')
 def getAllGroupChats():
@@ -122,11 +132,6 @@ def getAllHashtags():
 def getHashtagById(hid):
     return HashtagHandler().getHashtagById(hid)
 
-# Route to get an element from table 'users' searching with an email
-@app.route('/MessagingApp_DB/users/email/<string:email>')
-def getUserByEmail(email):
-    return UserHandler().getUserByEmail(email)
-
 # Route to statistics page
 @app.route('/MessagingApp_DB/statistics/')
 def statistics():
@@ -161,10 +166,6 @@ def dislikeStatistics():
 @app.route('/MessagingApp_DB/statistics/activeusers/')
 def activeUserstatistics():
     return 'Statistics Route: Active users'
-# Route to get an element from table 'users' searching with an email
-@app.route('/MessagingApp_DB/users/phone/<string:phone>')
-def getUserByphone(phone):
-    return UserHandler().getUserByPhone(phone)
 
 if __name__ == '__main__':
     app.run()
