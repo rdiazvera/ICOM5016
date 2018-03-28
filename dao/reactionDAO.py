@@ -13,35 +13,35 @@ class ReactionDAO:
         M11 = [345, 5, 'dislike', 11]
 
         self.data = []
-        self.data.append(1)
-        self.data.append(2)
-        self.data.append(3)
-        self.data.append(4)
-        self.data.append(5)
-        self.data.append(6)
-        self.data.append(7)
-        self.data.append(8)
-        self.data.append(9)
-        self.data.append(10)
-        self.data.append(11)
+        self.data.append(M1)
+        self.data.append(M2)
+        self.data.append(M3)
+        self.data.append(M4)
+        self.data.append(M5)
+        self.data.append(M6)
+        self.data.append(M7)
+        self.data.append(M8)
+        self.data.append(M9)
+        self.data.append(M10)
+        self.data.append(M11)
 
-    def getAllReaction(self):
+    def getAllReactions(self):
         return self.data
 
     def getReactionById(self, id):
         for r in self.data:
-            if id == r[3]:
+            if int(id) == r[3]:
                 return r
         return None
 
     def getReactionByMessageId(self, mid):
         for r in self.data:
-            if mid == r[1]:
+            if int(mid) == r[1]:
                 return r
         return None
 
     def getReactionByUserId(self, mid):
         for r in self.data:
-            if mid == r[2]:
+            if int(mid) == r[2]:
                 return r
         return None

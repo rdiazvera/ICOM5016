@@ -6,7 +6,7 @@ class MemberHandler:
     def mapToDict(self, r):
         result = {}
         result['userid'] = r[0]
-        result['groupchatid'] = [1]
+        result['groupchatid'] = r[1]
         result['memberid'] = r[2]
         return result
 

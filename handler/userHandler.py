@@ -7,7 +7,7 @@ class UserHandler:
     def mapToDict(self, r):
         result = {}
         result['uid'] = r[0]
-        result['first_name'] = [1]
+        result['first_name'] = r[1]
         result['last_name'] = r[2]
         result['password'] = r[3]
         result['phone'] = r[4]

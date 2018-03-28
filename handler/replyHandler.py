@@ -7,13 +7,13 @@ class ReplyHandler:
     def mapToDict(self, r):
         result = {}
         result['reply_mid'] = r[0]
-        result['replied_mid'] = [1]
-        result['rid'] = [3]
+        result['replied_mid'] = r[1]
+        result['rid'] = r[2]
         return result
 
-    def getAllReply(self):
+    def getAllReplies(self):
         dao = ReplyDAO()
-        result = dao.getAllReply()
+        result = dao.getAllReplies()
         mapped_result = []
         for r in result:
             mapped_result.append(self.mapToDict(r))

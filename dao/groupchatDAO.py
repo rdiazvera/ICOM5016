@@ -1,8 +1,8 @@
 class GroupChatDAO:
     def __init__(self):
-        G1 = [101, 'Los Cool', '424']
-        G2 = [74, 'Grupo Fisica Cuantica', '978']
-        G3 = [276, 'Proyecto de DB', '345']
+        G1 = [101, 'Los Cool', 424]
+        G2 = [74, 'Grupo Fisica Cuantica', 978]
+        G3 = [276, 'Proyecto de DB', 345]
 
         self.data = []
         self.data.append(G1)
@@ -14,7 +14,7 @@ class GroupChatDAO:
 
     def getGroupChatById(self, id):
         for r in self.data:
-            if id == r[0]:
+            if int(id) == r[0]:
                 return r
         return None
 

@@ -26,25 +26,24 @@ class MessagesDAO:
                 result.append(r)
         return result
 
-    def getMessageByGroupChatID(self, gid):
+    def getMessageByGroupChatID(self, groupchatid):
         result = []
         for r in self.data:
-            if r[7] == int(gid):
+            if r[7] == int(groupchatid):
                 result.append(r)
         return result
 
-    def getMessagesByUserID(self, uid):
+    def getMessagesByOwnerID(self, ownerid):
         result = []
         for r in self.data:
-            if r[6] == int(uid):
+            if r[6] == int(ownerid):
                 result.append(r)
         return result
 
     def getMessageByDate(self, date):
         result = []
-        date = date.split()[0]
         for r in self.data:
-            if r[2] == int(date):
+            if r[2].split()[0] == date:
                 result.append(r)
         return result
 

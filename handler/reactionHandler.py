@@ -7,14 +7,14 @@ class ReactionHandler:
     def mapToDict(self, r):
         result = {}
         result['userid'] = r[0]
-        result['messageid'] = [1]
+        result['messageid'] = r[1]
         result['type'] = r[2]
         result['reactionid'] = r[3]
         return result
 
     def getAllReactions(self):
         dao = ReactionDAO()
-        result = dao.getAllReaction()
+        result = dao.getAllReactions()
         mapped_result = []
         for r in result:
             mapped_result.append(self.mapToDict(r))

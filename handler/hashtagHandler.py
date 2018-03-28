@@ -6,7 +6,7 @@ class HashtagHandler:
     def mapToDict(self, r):
         result = {}
         result['hid'] = r[0]
-        result['hstring'] = [1]
+        result['hstring'] = r[1]
         result['messageid'] = r[2]
         return result
 
@@ -20,7 +20,7 @@ class HashtagHandler:
 
     def getHashtagById(self, hid):
         dao = HashtagDAO()
-        result = dao.getUserById(hid)
+        result = dao.getHashtagById(hid)
         if result is None:
             return jsonify(Error="NOT FOUND"), 404
         else :

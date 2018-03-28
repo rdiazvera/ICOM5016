@@ -22,13 +22,7 @@ class messageHandler:
         mapped_result = []
         for r in result:
             mapped_result.append(self.mapToDict(r))
-        return jsonify(Part=mapped_result)
-
-    def mapToSupDict(self, row):
-        result = {}
-        result['sid'] = row[0]
-        result['sname'] = row[1]
-        return result
+        return jsonify(Message=mapped_result)
 
     def getMessageByID(self, mid):
         dao = MessagesDAO()
@@ -38,46 +32,46 @@ class messageHandler:
         else:
             for r in result:
                 mapped = self.mapToDict(r)
-            return jsonify(Messages=mapped)
+            return jsonify(Message=mapped)
 
-    def getMessagesByUserID(self, uid):
+    def getMessagesByOwnerID(self, ownerid):
         dao = MessagesDAO()
-        result = dao.getMessagesByUserID(uid)
+        result = dao.getMessagesByOwnerID(ownerid)
         mapped_result = []
         for r in result:
-            mapped_result.append(self.mapToSupDict(r))
-        return jsonify(Messages=mapped_result)
+            mapped_result.append(self.mapToDict(r))
+        return jsonify(Message=mapped_result)
 
-    def getMessagesByGroupChatID(self, gid):
+    def getMessagesByGroupChatID(self, groupchatid):
         dao = MessagesDAO()
-        result = dao.getMessageByGroupChatID(gid)
+        result = dao.getMessageByGroupChatID(groupchatid)
         mapped_result = []
         for r in result:
-            mapped_result.append(self.mapToSupDict(r))
-        return jsonify(Messages=mapped_result)
+            mapped_result.append(self.mapToDict(r))
+        return jsonify(Message=mapped_result)
 
     def getMessageByText(self, text):
         dao = MessagesDAO()
         result = dao.getMessageByText(text)
         mapped_result = []
         for r in result:
-            mapped_result.append(self.mapToSupDict(r))
-        return jsonify(Messages=mapped_result)
+            mapped_result.append(self.mapToDict(r))
+        return jsonify(Message=mapped_result)
 
     def getMessageByDate(self, date):
         dao = MessagesDAO()
         result = dao.getMessageByDate(date)
         mapped_result = []
         for r in result:
-            mapped_result.append(self.mapToSupDict(r))
-        return jsonify(Messages=mapped_result)
+            mapped_result.append(self.mapToDict(r))
+        return jsonify(Message=mapped_result)
 
     def getMessageBy(self, args):
-        userID = args.get('id')
+        ownerID = args.get('id')
         dao = MessagesDAO()
-        result = dao.getMessagesByUserID(userID)
+        result = dao.getMessagesByOwnerID(ownerID)
         mapped_result = []
         for r in result:
             mapped_result.append(self.mapToDict(r))
-        return jsonify(Messages=mapped_result)
+        return jsonify(Message=mapped_result)
 
