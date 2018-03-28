@@ -22,7 +22,7 @@ These routes will be used for getting statistics from the application.
 /MessagingApp_DB/statistics/messages/
 /MessagingApp_DB/statistics/replies/
 /MessagingApp_DB/statistics/likes/
-/MessagingApp_DB/statistics/likes/
+/MessagingApp_DB/statistics/dislikes/
 /MessagingApp_DB/statistics/activeusers/
 ```
 
