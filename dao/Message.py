@@ -1,11 +1,11 @@
 class MessagesDAO:
     def __init__(self):
         M1 = [1, 'Saludos cordiales #SoyCool #LaBestia #NecesitoAmigos', '2015-06-13 00:39:17', 2, 1, 6, 424, 101]
-        M2 = [2, 'No voy a escribir mensajes obscenos', '2018-28-3 11:59:59', 0, 500, 4, 343, 345]
-        M3 = [3, 'Porque mi equipo no me dejo #EstoNoEsUnaDemocracia', '2018-28-3 11:59:59', 0, 10000000, 3, 343, 345]
-        M4 = [4, 'huqrqhwruhwqr #gibberish', '2018-29-3 11:59:59', 8, 4, 3, 343, 345]
-        M5 = [5, 'asfaf', '2018-23-3 11:59:59', 111110, 2, 3, 987, 978]
-        M6 = [6, 'fffffffffffffffffff  #EsperoQueNoSaquemosF', '2018-23-3 11:59:59', 0, 3, 3, 345, 978]
+        M2 = [2, 'No voy a escribir mensajes obscenos', '2018-28-3 11:50:59', 0, 500, 4, 343, 74]
+        M3 = [3, 'Porque mi equipo no me dejo #EstoNoEsUnaDemocracia', '2018-28-3 11:59:59', 0, 10000000, 3, 343, 74]
+        M4 = [4, 'huqrqhwruhwqr #gibberish #icom5016', '2018-29-3 11:51:59', 8, 4, 3, 343, 74]
+        M5 = [5, 'asfaf #icom5016', '2018-23-3 11:11:59', 111110, 2, 3, 987, 276]
+        M6 = [6, 'fffffffffffffffffff #EsperoQueNoSaquemosF #icom5016', '2018-23-3 11:45:59', 0, 3, 3, 345, 276]
 
         self.data = []
         self.data.append(M1)
@@ -16,62 +16,44 @@ class MessagesDAO:
         self.data.append(M6)
 
 
-def getAllMessages(self):
-    return self.data
+    def getAllMessages(self):
+        return self.data
 
-
-def getMessageById(self, id):
-    for r in self.data:
-        if id == r[3]:
-            return r
-    return None
-
-
-def getMessageByGroupChatId(self, id):
-    if id == 3:
-        return [['123', 'Home Depot']]
-    elif id == 122:
-        T = []
-        T.append(['123', 'Home Depot'])
-        T.append(['456', 'National'])
-        return T
-    else:
-        return []
-
-def getMessagesByUserID(self, user_id):
-    result = []
-    if user_id == 343:
+    def getMessageByID(self, mid):
+        result = []
         for r in self.data:
-         if user_id == 343:
-            result.append(r)
-    elif user_id == 345:
-        for r in self.data:
-            if user_id == 345:
+            if r[0] == int(mid):
                 result.append(r)
-    return result
+        return result
 
-
-def getMessageByDate(self, date):
+    def getMessageByGroupChatID(self, gid):
+        result = []
         for r in self.data:
-            if date == '2018-28-3 11:59:59':
-                return r
-            elif date == '2018-23-3 11:59:59':
-                return r
-            else:
-                return []
+            if r[7] == int(gid):
+                result.append(r)
+        return result
 
-def getMessageByText(self, text):
-    for r in self.data:
-        if text == 'asfaf':
-            return r
-        elif text == 'No voy a escribir mensajes obscenos':
-            return r
-        else:
-            return []
+    def getMessagesByUserID(self, uid):
+        result = []
+        for r in self.data:
+            if r[6] == int(uid):
+                result.append(r)
+        return result
 
-def searchByColor(self, color):
-    result = []
-    for r in self.data:
-        if color == r[3]:
-            result.append(r)
-    return result
+    def getMessageByDate(self, date):
+        result = []
+        date = date.split()[0]
+        for r in self.data:
+            if r[2] == int(date):
+                result.append(r)
+        return result
+
+    def getMessageByText(self, text):
+        result = []
+        for r in self.data:
+            if r[1] == text:
+                result.append(r)
+        return result
+
+
+
