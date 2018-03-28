@@ -17,13 +17,15 @@ class ReplyDAO:
         return None
 
     def getReplyByReplyId(self, reply_id):
+        result = []
         for r in self.data:
             if int(reply_id) == r[0]:
-                return r
-        return None
+                result.append(r)
+        return result
 
     def getReplyByRepliedId(self, replied_id):
+        result = []
         for r in self.data:
             if int(replied_id) == r[1]:
                 return r
-        return None
+        return result

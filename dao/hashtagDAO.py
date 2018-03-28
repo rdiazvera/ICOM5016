@@ -25,7 +25,8 @@ class HashtagDAO:
         return None
 
     def getHashtagByMessageId(self, name):
+        result = []
         for r in self.data:
             if name == r[1]:
-                return r
-        return None
+                result.append(r)
+        return result
