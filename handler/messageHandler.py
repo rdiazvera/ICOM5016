@@ -27,6 +27,7 @@ class messageHandler:
     def getMessageByID(self, mid):
         dao = MessagesDAO()
         result = dao.getMessageByID(mid)
+        mapped = []
         if result is None:
             return jsonify(Error="NOT FOUND"), 404
         else:

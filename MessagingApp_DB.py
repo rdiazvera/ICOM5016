@@ -29,7 +29,7 @@ def log_in():
 def signup():
     return 'Sign Up Route'
 
-# Route to all elements from table 'Messages'
+# Route to all elements from table 'Messages' also searches by ID using args
 @app.route('/MessagingApp_DB/messages/')
 def getAllMessages():
     if request.args:
@@ -111,6 +111,13 @@ def getAllReactions():
 @app.route('/MessagingApp_DB/reactions/<int:rid>/')
 def getReactionById(rid):
     return ReactionHandler().getReactionById(rid)
+
+
+# Route to get an element from table 'Reaction' searching with an id
+@app.route('/MessagingApp_DB/reactions/type/<string:type>/')
+def getReactionByType(type):
+    return ReactionHandler().getReactionByType(type)
+
 
 # Route to all elements from table 'Reply'
 @app.route('/MessagingApp_DB/replies/')

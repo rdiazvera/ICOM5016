@@ -28,3 +28,12 @@ class ReactionHandler:
         else :
             mapped = self.mapToDict(result)
             return jsonify(Reaction=mapped)
+
+    def getReactionByType(self, type):
+        dao = ReactionDAO()
+        result = dao.getReactionByType(type)
+        if result is None:
+            return jsonify(Error="NOT FOUND"), 404
+        else :
+            mapped = self.mapToDict(result)
+            return jsonify(Reaction=mapped)

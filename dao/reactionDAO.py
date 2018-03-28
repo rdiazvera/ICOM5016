@@ -40,8 +40,16 @@ class ReactionDAO:
                 return r
         return None
 
-    def getReactionByUserId(self, mid):
+    def getReactionByUserId(self, uid):
+        result = []
         for r in self.data:
-            if int(mid) == r[2]:
-                return r
-        return None
+            if r[0] == uid:
+                result.append(r)
+        return result
+
+    def getReactionByType(self, type):
+        result = []
+        for r in self.data:
+            if r[2] == type:
+                result.append(r)
+        return result

@@ -19,13 +19,15 @@ class GroupChatDAO:
         return None
 
     def getGroupChatByName(self, name):
+        result = []
         for r in self.data:
-            if name == r[1]:
-                return r
-        return None
+            if r[1] == name:
+                result.append(r)
+        return result
 
     def getGroupChatByOwnerId(self, id):
+        result = []
         for r in self.data:
-            if id == r[2]:
-                return r
-        return None
+            if r[2] == id:
+                result.append(r)
+        return result
