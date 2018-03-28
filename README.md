@@ -41,6 +41,8 @@ These routes will be used for getting data from the Users Table.
 ```
 /MessagingApp_DB/users/
 /MessagingApp_DB/users/(uid)/
+/MessagingApp_DB/users/email/(emailid)/
+/MessagingApp_DB/users/phone/(phoneid)/
 ```
 
 ### GroupChats Table Routes
@@ -48,6 +50,7 @@ These routes will be used for getting data from the GroupChats Table.
 ```
 /MessagingApp_DB/groupchats/
 /MessagingApp_DB/groupchats/(gid)/
+/MessagingApp_DB/groupchats/owner/(ownerid)/
 ```
 
 ### Members Table Routes
