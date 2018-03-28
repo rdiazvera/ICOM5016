@@ -66,6 +66,7 @@ These routes will be used for getting data from the Reactions Table.
 ```
 /MessagingApp_DB/reactions/
 /MessagingApp_DB/reactions/(rid)/
+/MessagingApp_DB/reactions/type/(type)/
 ```
 
 ### Replies Table Routes
