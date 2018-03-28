@@ -31,13 +31,15 @@ class MemberDAO:
         return None
 
     def getMemberByGroupId(self, gid):
+        result = []
         for r in self.data:
             if gid == r[1]:
-                return r
-        return None
+                result.append(r)
+        return result
 
     def getMemberByUserId(self, uid):
+        result = []
         for r in self.data:
             if uid == r[0]:
-                return r
-        return None
+                result.append(r)
+        return result
