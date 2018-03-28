@@ -29,7 +29,8 @@ These routes will be used for getting statistics from the application.
 ### Message Table Routes
 These routes will be used for getting data from the Messages Table.
 ```
-/MessagingApp_DB/messages
+/MessagingApp_DB/messages/
+/MessagingApp_DB/messages?id=(mid)/
 /MessagingApp_DB/messages/(mid)/
 /MessagingApp_DB/messages/owner/(ownerid)/
 /MessagingApp_DB/messages/groupchat/(groupchatid)/
