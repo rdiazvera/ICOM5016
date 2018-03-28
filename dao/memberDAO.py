@@ -1,4 +1,4 @@
-class memberDAO:
+class MemberDAO:
     def __init__(self):
         M1 = [424, 101, 1]
         M2 = [424, 276, 2]
