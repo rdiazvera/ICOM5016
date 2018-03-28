@@ -30,7 +30,7 @@ create table Hashtag (
 	messageid integer references Messages(mid)
 	)
 
-create table isPartOf(
+create table isMember (
 	userid integer references user(uid),
 	groupchatid integer references GroupChat(gid),
 	primary key (userid, groupchatid)
