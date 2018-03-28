@@ -77,6 +77,11 @@ def getAllGroupChats():
 def getGroupChatsById(gid):
     return GroupChatHandler().getGroupChatById(gid)
 
+# Route to get an element from table 'Groupchat' search with an owner id
+@app.route('/MessagingApp_DB/groupchats/owner/<int:ownerId>')
+def getGroupChatByOwnerId(ownerId):
+    return UserHandler().getGroupChatByOwnerId(ownerId)
+
 # Route to all elements from table 'Member'
 @app.route('/MessagingApp_DB/members/')
 def getAllMembers():
@@ -117,12 +122,15 @@ def getAllHashtags():
 def getHashtagById(hid):
     return HashtagHandler().getHashtagById(hid)
 
+# Route to get an element from table 'users' searching with an email
+@app.route('/MessagingApp_DB/users/email/<string:email>')
+def getUserByEmail(email):
+    return UserHandler().getUserByEmail(email)
 
-# Route to statistics page
-@app.route('/MessagingApp_DB/statistics/')
-def statistics():
-    return 'Statistics Route'
-
+# Route to get an element from table 'users' searching with an email
+@app.route('/MessagingApp_DB/users/phone/<string:phone>')
+def getUserByphone(phone):
+    return UserHandler().getUserByPhone(phone)
 
 if __name__ == '__main__':
     app.run()
