@@ -18,6 +18,12 @@ These routes will be used for login/signin information and initial home page.
 These routes will be used for getting statistics from the application.
 ```
 /MessagingApp_DB/statistics/
+/MessagingApp_DB/statistics/trending
+/MessagingApp_DB/statistics/messages
+/MessagingApp_DB/statistics/replies
+/MessagingApp_DB/statistics/likes
+/MessagingApp_DB/statistics/likes
+/MessagingApp_DB/statistics/activeusers
 ```
 
 ### Message Table Routes
