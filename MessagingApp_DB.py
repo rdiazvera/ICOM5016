@@ -80,7 +80,7 @@ def getGroupChatsById(gid):
 # Route to get an element from table 'Groupchat' search with an owner id
 @app.route('/MessagingApp_DB/groupchats/owner/<int:ownerId>')
 def getGroupChatByOwnerId(ownerId):
-    return UserHandler().getGroupChatByOwnerId(ownerId)
+    return GroupChatHandler().getGroupChatByOwnerId(ownerId)
 
 # Route to all elements from table 'Member'
 @app.route('/MessagingApp_DB/members/')
