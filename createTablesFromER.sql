@@ -1,4 +1,4 @@
-create table User (
+create table Users (
 	uid serial primary key, 
 	first_name varchar(20), 
 	last_name varchar(20), 
@@ -18,13 +18,13 @@ create table Messages (
 	groupchatid integer references GroupChat(gid)
 	)
 
-create table GroupChat (
+create table GroupChats (
 	gid serial primary key, 
 	gname varchar(20), 
 	ownerid integer references User(uid)
 	)
 
-create table Hashtag (
+create table Hashtags (
 	hid serial primary key, 
 	hstring varchar(20), 
 	messageid integer references Messages(mid)
@@ -43,7 +43,7 @@ create table Reactions (
 	primary key (userid, messageid)
 	)
 
-create table repliesTo(
+create table Replies (
 	reply_mid integer references Messages(mid),
 	replied_mid integer references Messages(mid),
 	primary key (reply_mid, replied_mid)
