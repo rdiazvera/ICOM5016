@@ -1,4 +1,4 @@
-class reactionDAO:
+class ReactionDAO:
     def __init__(self):
         M1 = [987, 4, 'like', 1]
         M2 = [963, 4, 'like', 2]

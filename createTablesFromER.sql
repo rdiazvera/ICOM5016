@@ -14,33 +14,33 @@ create table Messages (
 	num_likes integer, 
 	num_dislikes integer, 
 	num_replies integer , 
-	uid integer references User(uid),
-	gid integer references GroupChat(gid)
+	ownerid integer references User(uid),
+	groupchatid integer references GroupChat(gid)
 	)
 
 create table GroupChat (
 	gid serial primary key, 
 	gname varchar(20), 
-	uid integer references User(uid)
+	ownerid integer references User(uid)
 	)
 
 create table Hashtag (
 	hid serial primary key, 
 	hstring varchar(20), 
-	mid integer references Messages(mid)
+	messageid integer references Messages(mid)
 	)
 
 create table isPartOf(
-	uid integer references user(uid), 
-	gid integer references GroupChat(gid), 
-	primary key (uid, gid)
+	userid integer references user(uid),
+	groupchatid integer references GroupChat(gid),
+	primary key (userid, groupchatid)
 	)
 
 create table Reactions (
-	uid integer references User(uid), 
-	mid integer references Messages(mid), 
+	userid integer references User(uid),
+	messageid integer references Messages(mid),
 	type varchar(10), 
-	primary key (uid, mid)
+	primary key (userid, messageid)
 	)
 
 create table repliesTo(
