@@ -27,7 +27,7 @@ create table hashtag (
 	mid integer references message(mid)
 	)
 
-create table ismember (
+create table members (
 	uid integer references user(uid),
 	gid integer references groupchat(gid),
 	primary key (uid, gid)
