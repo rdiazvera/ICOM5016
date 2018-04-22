@@ -24,6 +24,7 @@ create table messages (
 create table hashtags (
 	hid serial primary key,
 	hstring varchar(30) unique,
+	hcount integer,
 	mid integer references messages(mid)
 	);
 
