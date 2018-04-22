@@ -1,51 +1,55 @@
-create table Users (
+create table user (
 	uid serial primary key, 
 	first_name varchar(20), 
 	last_name varchar(20), 
-	password varchar(20),
+	password varchar(25),
 	phone varchar(10), 
-	email varchar(20)
+	email varchar(50)
 	)
 
-create table Messages (
+create table message (
 	mid serial primary key, 
 	text varchar(250), 
-	date_created varchar(10), 
-	num_likes integer, 
-	num_dislikes integer, 
-	num_replies integer , 
-	ownerid integer references User(uid),
-	groupchatid integer references GroupChat(gid)
+	date_created timestamp, 
+	uid integer references user(uid),
+	gid integer references groupchat(gid)
 	)
 
-create table GroupChats (
+create table groupchat (
 	gid serial primary key, 
 	gname varchar(20), 
-	ownerid integer references User(uid)
+	uid integer references user(uid)
 	)
 
-create table Hashtags (
+create table hashtag (
 	hid serial primary key, 
-	hstring varchar(20), 
-	messageid integer references Messages(mid)
+	hstring varchar(30) unique, 
+	mid integer references message(mid)
 	)
 
-create table isMember (
-	userid integer references user(uid),
-	groupchatid integer references GroupChat(gid),
-	primary key (userid, groupchatid)
+create table ismember (
+	uid integer references user(uid),
+	gid integer references groupchat(gid),
+	primary key (uid, gid)
 	)
 
-create table Reactions (
-	userid integer references User(uid),
-	messageid integer references Messages(mid),
+create table reactions (
+	uid integer references user(uid),
+	mid integer references message(mid),
 	type varchar(10), 
-	primary key (userid, messageid)
+	primary key (uid, mid)
 	)
 
-create table Replies (
-	reply_mid integer references Messages(mid),
-	replied_mid integer references Messages(mid),
+create table replies (
+	reply_mid integer references message(mid),
+	replied_mid integer references message(mid),
 	primary key (reply_mid, replied_mid)
 	)
+	
+create table contacts (
+	user1_uid integer references user(uid),
+	user2_uid integer references user(uid),
+	primary key (user1_uid, user2_uid)
+	)
+	
 
