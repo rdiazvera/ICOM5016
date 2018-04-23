@@ -1,58 +1,91 @@
+from config.dbconfig import pg_config
+import psycopg2
+
+
+# Data Access Object (DAO) Class to access the Messages, Replies, Reactions and Hashtags entities
 class MessagesDAO:
+
+    # Initialization Method (Class Constructor)
     def __init__(self):
-        M1 = [1, 'Saludos cordiales #SoyCool #LaBestia #NecesitoAmigos', '2015-06-13 00:39:17', 2, 1, 6, 424, 101]
-        M2 = [2, 'No voy a escribir mensajes obscenos', '2018-28-3 11:50:59', 0, 500, 4, 343, 74]
-        M3 = [3, 'Porque mi equipo no me dejo #EstoNoEsUnaDemocracia', '2018-28-3 11:59:59', 0, 10000000, 3, 343, 74]
-        M4 = [4, 'huqrqhwruhwqr #gibberish #icom5016', '2018-29-3 11:51:59', 8, 4, 3, 343, 74]
-        M5 = [5, 'asfaf #icom5016', '2018-23-3 11:11:59', 111110, 2, 3, 987, 276]
-        M6 = [6, 'fffffffffffffffffff #EsperoQueNoSaquemosF #icom5016', '2018-23-3 11:45:59', 0, 3, 3, 345, 276]
+        connection_url = "dbname=%s user=%s password=%s" % (pg_config['dbname'], pg_config['user'], pg_config['passwd'])
+        self.conn = psycopg2._connect(connection_url)
 
-        self.data = []
-        self.data.append(M1)
-        self.data.append(M2)
-        self.data.append(M3)
-        self.data.append(M4)
-        self.data.append(M5)
-        self.data.append(M6)
+    # === Messages Getters === #
 
-
+    # List of all messages in the system
     def getAllMessages(self):
-        return self.data
-
-    def getMessageByID(self, mid):
+        cursor = self.conn.cursor()
+        query = "select * from messages;"
+        cursor.execute(query)
         result = []
-        for r in self.data:
-            if r[0] == int(mid):
-                result.append(r)
+        for row in cursor:
+            result.append(row)
         return result
 
-    def getMessageByGroupChatID(self, groupchatid):
-        result = []
-        for r in self.data:
-            if r[7] == int(groupchatid):
-                result.append(r)
+    def getMessageById(self, mid):
+        cursor = self.conn.cursor()
+        query = "select * from messages where mid = %s;"
+        cursor.execute(query, (mid,))
+        result = cursor.fetchone()
         return result
 
-    def getMessagesByOwnerID(self, ownerid):
+    # List of messages posted to a chat group
+    def getMessageByGroupChatId(self, gid):
+        cursor = self.conn.cursor()
+        query = "select * from messages where gid = %s order by date_created;"
+        cursor.execute(query, (gid,))
         result = []
-        for r in self.data:
-            if r[6] == int(ownerid):
-                result.append(r)
+        for row in cursor:
+            result.append(row)
         return result
 
-    def getMessageByDate(self, date):
+    # === Reactions Getters === #
+
+    def getAllReactions(self):
+        cursor = self.conn.cursor()
+        query = "select * from reactions;"
+        cursor.execute(query)
         result = []
-        for r in self.data:
-            if r[2].split()[0] == date:
-                result.append(r)
+        for row in cursor:
+            result.append(row)
         return result
 
-    def getMessageByText(self, text):
-        result = []
-        for r in self.data:
-            if r[1] == text:
-                result.append(r)
+    # Number of likes to a message
+    def getNumberOfLikes(self, mid):
+        cursor = self.conn.cursor()
+        query = "select count(*) from reactions where mid = %s and type= \"like\";"
+        cursor.execute(query, (mid,))
+        result = cursor.fetchone()
         return result
 
+    # List of users who liked a message
+    def getUsersWhoLikeMessage(self, mid):
+        cursor = self.conn.cursor()
+        query = "select uid from reactions natural inner join users where mid = %s and type= \"like\";"
+        cursor.execute(query, (mid,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
+    # Number of dislikes to a message
+    def getNumberOfDislikes(self, mid):
+        cursor = self.conn.cursor()
+        query = "select count(*) from reactions where mid = %s and type= \"dislike\";"
+        cursor.execute(query, (mid,))
+        result = cursor.fetchone()
+        return result
 
+    # List of users who dislikes a message
+    def getUsersWhoDislikeMessage(self, mid):
+        cursor = self.conn.cursor()
+        query = "select uid from reactions natural inner join users where mid = %s and type= \"like\";"
+        cursor.execute(query, (mid,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    # === Replies Getters === #
+
+    # === Hashtags Getters === #
