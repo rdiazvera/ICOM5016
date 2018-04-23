@@ -1,49 +1,59 @@
+from config.dbconfig import pg_config
+import psycopg2
+
+
+# Data Access Object (DAO) Class to access the Users and Contacts entities
 class UserDAO:
+
+    # Initialization Method (Class Constructor)
     def __init__(self):
-        U1 = [424, 'Apu', 'Las', 'troij90wf', '787-832-4040', 'apu.las@upr.edu']
-        U2 = [987, 'Jil', 'Mas', 'hytrty12', '787-832-4141', 'jil.mas@upr.edu']
-        U3 = [343, 'Bob', 'Nas', 'treyte3', '787-832-4242', 'bob.nas@upr.edu']
-        U4 = [963, 'Amy', 'Pas', 'tret6654', '787-832-4343', 'amy.pas@upr.edu']
-        U5 = [345, 'Ron', 'Qas', 'retree76', '787-832-4545', 'ron.qas@upr.edu']
+        connection_url = "dbname=%s user=%s password=%s" % (pg_config['dbname'], pg_config['user'], pg_config['passwd'])
+        self.conn = psycopg2._connect(connection_url)
 
-        self.data = []
-        self.data.append(U1)
-        self.data.append(U2)
-        self.data.append(U3)
-        self.data.append(U4)
-        self.data.append(U5)
+    # === User Getters === #
 
+    # List of users in the system
     def getAllUsers(self):
-        return self.data
+        cursor = self.conn.cursor()
+        query = "select * from users;"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
 
     def getUserById(self, uid):
-        for r in self.data:
-            if int(uid) == r[0]:
-                return r
-        return None
-
-    def getUsersByNameFirst(self, name):
-        result = []
-        for r in self.data:
-            if name == r[1]:
-                result.append(r)
+        cursor = self.conn.cursor()
+        query = "select * from users where uid = %s;"
+        cursor.execute(query, (uid,))
+        result = cursor.fetchone()
         return result
 
-    def getUsersByNameLast(self, name):
-        result = []
-        for r in self.data:
-            if name == r[2]:
-                result.append(r)
+    #Information on a given user (by id)
+    def getUserInformation(self, uid):
+        cursor = self.conn.cursor()
+        query = "select * from users where uid = %s;"
+        cursor.execute(query, (uid,))
+        result = cursor.fetchone()
         return result
 
-    def getUserByPhone(self, phone):
-        for r in self.data:
-            if phone == r[4]:
-                return r
-        return None
+    #Information on a given user (by username)
+    def getUserInformation(self, username):
+        cursor = self.conn.cursor()
+        query = "select * from users where username = %s;"
+        cursor.execute(query, (username,))
+        result = cursor.fetchone()
+        return result
 
-    def getUserByEmail(self, email):
-        for r in self.data:
-            if email == r[5]:
-                return r
-        return None
+    # === Contacts Getters === #
+
+    # List of users in the contact list of some user X
+    def getContactsOfUser(self, uid):
+        cursor = self.conn.cursor()
+        # TODO: Edit
+        query = "select user1_uid from contacts where uid = %s;"
+        cursor.execute(query, (uid,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
