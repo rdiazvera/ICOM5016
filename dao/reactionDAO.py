@@ -1,55 +1,34 @@
+from config.dbconfig import pg_config
+import psycopg2
+
 class ReactionDAO:
     def __init__(self):
-        M1 = [987, 4, 'like', 1]
-        M2 = [963, 4, 'like', 2]
-        M3 = [987, 2, 'dislike', 3]
-        M4 = [987, 3, 'like', 4]
-        M5 = [424, 5, 'dislike', 5]
-        M6 = [343, 5, 'dislike', 6]
-        M7 = [963, 5, 'dislike', 7]
-        M8 = [424, 6, 'like', 8]
-        M9 = [343, 6, 'dislike', 9]
-        M10 = [987, 6, 'like', 10]
-        M11 = [345, 5, 'dislike', 11]
-
-        self.data = []
-        self.data.append(M1)
-        self.data.append(M2)
-        self.data.append(M3)
-        self.data.append(M4)
-        self.data.append(M5)
-        self.data.append(M6)
-        self.data.append(M7)
-        self.data.append(M8)
-        self.data.append(M9)
-        self.data.append(M10)
-        self.data.append(M11)
+        connection_url = "dbname=%s user=%s password=%s" % (pg_config['dbname'], pg_config['user'], pg_config['passwd'])
+        self.conn = psycopg2._connect(connection_url)
 
     def getAllReactions(self):
-        return self.data
-
-    def getReactionById(self, id):
-        for r in self.data:
-            if int(id) == r[3]:
-                return r
-        return None
-
-    def getReactionByMessageId(self, mid):
-        for r in self.data:
-            if int(mid) == r[1]:
-                return r
-        return None
-
-    def getReactionByUserId(self, uid):
+        cursor = self.conn.cursor()
+        query = "select * from reactions;"
+        cursor.execute(query)
         result = []
-        for r in self.data:
-            if r[0] == uid:
-                result.append(r)
+        for row in cursor:
+            result.append(row)
         return result
 
-    def getReactionByType(self, type):
+    def getNumberOfLikes(self, mid):
+        cursor = self.conn.cursor()
+        query = "select count(*) from reactions where mid = %s and type= \"like\";"
+        cursor.execute(query, (mid,))
         result = []
-        for r in self.data:
-            if r[2] == type:
-                result.append(r)
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getNumberOfDislikes(self, mid):
+        cursor = self.conn.cursor()
+        query = "select count(*) from reactions where mid = %s and type= \"dislike\";"
+        cursor.execute(query, (mid,))
+        result = []
+        for row in cursor:
+            result.append(row)
         return result
