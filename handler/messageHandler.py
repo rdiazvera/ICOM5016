@@ -55,7 +55,7 @@ class MessageHandler:
         for r in result:
             # TODO: Edit
             mapped = buildDict
-        return jsonify(Messages=mapped)
+        return jsonify(Likes=mapped)
 
     # List of users who liked a message
     def getUsersWhoLikeMessage(self, mid):
@@ -65,7 +65,7 @@ class MessageHandler:
         for r in result:
             # TODO: Edit
             mapped_result.append(buildDict.build_users_dict(r))
-        return jsonify(Messages=mapped_result)
+        return jsonify(Users=mapped_result)
 
     # Number of dislikes to a message
     def getNumberOfDislikes(self, mid):
@@ -75,7 +75,7 @@ class MessageHandler:
         for r in result:
             # TODO: Edit
              mapped = buildDict
-        return jsonify(Messages=mapped)
+        return jsonify(Dislikes=mapped)
 
 
     # List of users who dislikes a message
@@ -86,7 +86,7 @@ class MessageHandler:
         for r in result:
             # TODO: Edit
             mapped_result.append(buildDict.build_users_dict(r))
-        return jsonify(Messages=mapped_result)
+        return jsonify(Users=mapped_result)
 
 
     # === Replies Getters === #
