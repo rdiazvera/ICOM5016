@@ -1,7 +1,7 @@
 from flask import Flask, request
-from handler.messageHandler import messageHandler
-from handler.userHandler import UserHandler
-from handler.groupchatHandler import GroupChatHandler
+from handler.messagesHandler import messageHandler
+from handler.usersHandler import UsersHandler
+from handler.groupchatsHandler import GroupChatsHandler
 from handler.memberHandler import MemberHandler
 from handler.hashtagHandler import HashtagHandler
 from handler.reactionHandler import ReactionHandler
@@ -60,37 +60,37 @@ def getMessagesByDate(date):
 # Route to all elements from table 'Users'
 @app.route('/MessagingApp_DB/users/')
 def getAllUsers():
-    return UserHandler().getAllUsers()
+    return UsersHandler().getAllUsers()
 
 # Route to get an element from table 'Users' searching with an id
 @app.route('/MessagingApp_DB/users/<int:uid>/')
 def getUserById(uid):
-    return UserHandler().getUserById(uid)
+    return UsersHandler().getUserById(uid)
 
 # Route to get an element from table 'users' searching with an email
 @app.route('/MessagingApp_DB/users/email/<string:email>')
 def getUserByEmail(email):
-    return UserHandler().getUserByEmail(email)
+    return UsersHandler().getUserByEmail(email)
 
 # Route to get an element from table 'users' searching with an phone
 @app.route('/MessagingApp_DB/users/phone/<string:phone>')
 def getUserByphone(phone):
-    return UserHandler().getUserByPhone(phone)
+    return UsersHandler().getUserByPhone(phone)
 
 # Route to all elements from table 'GroupChat'
 @app.route('/MessagingApp_DB/groupchats/')
 def getAllGroupChats():
-    return GroupChatHandler().getAllGroupChats()
+    return GroupChatsHandler().getAllGroupChats()
 
 # Route to get an element from table 'GroupChat' searching with an id
 @app.route('/MessagingApp_DB/groupchats/<int:gid>/')
 def getGroupChatsById(gid):
-    return GroupChatHandler().getGroupChatById(gid)
+    return GroupChatsHandler().getGroupChatById(gid)
 
 # Route to get an element from table 'Groupchat' search with an owner id
 @app.route('/MessagingApp_DB/groupchats/owner/<int:ownerId>')
 def getGroupChatByOwnerId(ownerId):
-    return GroupChatHandler().getGroupChatByOwnerId(ownerId)
+    return GroupChatsHandler().getGroupChatByOwnerId(ownerId)
 
 # Route to all elements from table 'Member'
 @app.route('/MessagingApp_DB/members/')

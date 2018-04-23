@@ -1,10 +1,10 @@
 from flask import jsonify, request
-from dao.messageDAO import MessagesDAO
+from dao.messagesDAO import MessagesDAO
 from handler import buildDict
 
 
 # Handler Class to handle the Messages, Replies, Reactions and Hashtags entities
-class MessageHandler:
+class MessagesHandler:
 
     # === Messages Getters === #
 

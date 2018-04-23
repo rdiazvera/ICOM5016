@@ -3,7 +3,7 @@ import psycopg2
 
 
 # Data Access Object (DAO) Class to access the Users and Contacts entities
-class UserDAO:
+class UsersDAO:
 
     # Initialization Method (Class Constructor)
     def __init__(self):

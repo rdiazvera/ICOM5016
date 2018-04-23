@@ -1,16 +1,16 @@
 from flask import jsonify
-from dao.userDAO import UserDAO
+from dao.usersDAO import UsersDAO
 from handler import buildDict
 
 
 # Handler Class to handle the Users and Contacts entities
-class UserHandler:
+class UsersHandler:
 
     # === User Getters === #
 
     # List of users in the system
     def getAllUsers(self):
-        dao = UserDAO()
+        dao = UsersDAO()
         result = dao.getAllUsers()
         mapped_result = []
         for r in result:
@@ -18,7 +18,7 @@ class UserHandler:
         return jsonify(Users=mapped_result)
 
     def getUserById(self, id):
-        dao = UserDAO()
+        dao = UsersDAO()
         result = dao.getUserById(id)
         if result is None:
             return jsonify(Error="NOT FOUND"), 404
@@ -28,7 +28,7 @@ class UserHandler:
 
     # Information on a given user (by id)
     def getUserInformationById(self, uid):
-        dao = UserDAO()
+        dao = UsersDAO()
         result = dao.getUserInformationById(uid)
         if result is None:
             return jsonify(Error="NOT FOUND"), 404
@@ -39,7 +39,7 @@ class UserHandler:
 
     # Information on a given user (by username)
     def getUserInformationByUsername(self, username):
-        dao = UserDAO()
+        dao = UsersDAO()
         result = dao.getUserInformationByUsername(username)
         if result is None:
             return jsonify(Error="NOT FOUND"), 404
@@ -52,7 +52,7 @@ class UserHandler:
 
     # List of users in the contact list of some user X
     def getContactsOfUser(self, uid):
-        dao = UserDAO()
+        dao = UsersDAO()
         result = dao.getContactsOfUser(uid)
         mapped_result = []
         for r in result:

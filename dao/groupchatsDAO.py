@@ -3,7 +3,7 @@ import psycopg2
 
 
 # Data Access Object (DAO) Class to access the GroupChats and Members entities
-class GroupChatDAO:
+class GroupChatsDAO:
 
     # Initialization Method (Class Constructor)
     def __init__(self):
