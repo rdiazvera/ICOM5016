@@ -33,7 +33,7 @@ class GroupChatHandler:
         else:
             # TODO: Edit
             mapped = buildDict.build_users_dict(result)
-            return jsonify(GroupChats=mapped)
+            return jsonify(Owner=mapped)
 
     # List of users subscribed to a chat group
     def getUsersInAGroupChat(self, gid):
