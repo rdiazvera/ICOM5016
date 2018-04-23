@@ -15,7 +15,7 @@ class MessageHandler:
         mapped_result = []
         for r in result:
             mapped_result.append(buildDict.build_messages_dict(r))
-        return jsonify(Message=mapped_result)
+        return jsonify(Messages=mapped_result)
 
     def getMessageById(self, mid):
         dao = MessagesDAO()
@@ -26,7 +26,7 @@ class MessageHandler:
         else:
             for r in result:
                 mapped = buildDict.build_messages_dict(r)
-            return jsonify(Message=mapped)
+            return jsonify(Messages=mapped)
 
     # List of messages posted to a chat group
     def getMessagesByGroupChatId(self, gid):
@@ -35,7 +35,7 @@ class MessageHandler:
         mapped_result = []
         for r in result:
             mapped_result.append(buildDict.build_messages_dict(r))
-        return jsonify(Message=mapped_result)
+        return jsonify(Messages=mapped_result)
 
     # === Reactions Getters === #
 
@@ -45,7 +45,7 @@ class MessageHandler:
         mapped_result = []
         for r in result:
             mapped_result.append(buildDict.build_reactions_dict(r))
-        return jsonify(Reaction=mapped_result)
+        return jsonify(Reactions=mapped_result)
 
     # Number of likes to a message
     def getNumberOfLikes(self, mid):
@@ -55,7 +55,7 @@ class MessageHandler:
         for r in result:
             # TODO: Edit
             mapped = buildDict
-        return jsonify(Message=mapped)
+        return jsonify(Messages=mapped)
 
     # List of users who liked a message
     def getUsersWhoLikeMessage(self, mid):
@@ -65,7 +65,7 @@ class MessageHandler:
         for r in result:
             # TODO: Edit
             mapped_result.append(buildDict.build_users_dict(r))
-        return jsonify(Message=mapped_result)
+        return jsonify(Messages=mapped_result)
 
     # Number of dislikes to a message
     def getNumberOfDislikes(self, mid):
@@ -75,7 +75,7 @@ class MessageHandler:
         for r in result:
             # TODO: Edit
              mapped = buildDict
-        return jsonify(Message=mapped)
+        return jsonify(Messages=mapped)
 
 
     # List of users who dislikes a message
@@ -86,7 +86,7 @@ class MessageHandler:
         for r in result:
             # TODO: Edit
             mapped_result.append(buildDict.build_users_dict(r))
-        return jsonify(Message=mapped_result)
+        return jsonify(Messages=mapped_result)
 
 
     # === Replies Getters === #
