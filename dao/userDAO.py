@@ -30,7 +30,7 @@ class UserDAO:
         return result
 
     #Information on a given user (by id)
-    def getUserInformation(self, uid):
+    def getUserInformationById(self, uid):
         cursor = self.conn.cursor()
         query = "select * from users where uid = %s;"
         cursor.execute(query, (uid,))
@@ -38,7 +38,7 @@ class UserDAO:
         return result
 
     #Information on a given user (by username)
-    def getUserInformation(self, username):
+    def getUserInformationByUsername(self, username):
         cursor = self.conn.cursor()
         query = "select * from users where username = %s;"
         cursor.execute(query, (username,))
