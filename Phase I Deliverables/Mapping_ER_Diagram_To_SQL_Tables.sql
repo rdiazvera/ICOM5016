@@ -2,6 +2,7 @@ create table users (
 	uid serial primary key,
 	first_name varchar(20),
 	last_name varchar(20),
+	username varchar(30),
 	password varchar(25),
 	phone varchar(10),
 	email varchar(50)
