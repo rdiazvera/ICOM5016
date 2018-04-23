@@ -50,8 +50,8 @@ class UsersDAO:
     # List of users in the contact list of some user X
     def getContactsOfUser(self, uid):
         cursor = self.conn.cursor()
-        # TODO: Edit
-        query = "select user1_uid from contacts where uid = %s;"
+        query = "select users1_uid from contacts where users2_uid = %s " \
+                "union select users2_uid from contacts where users1_uid = %d "
         cursor.execute(query, (uid,))
         result = []
         for row in cursor:
