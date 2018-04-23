@@ -1,26 +1,21 @@
 from flask import jsonify
 from dao.userDAO import UserDAO
+from handler import buildDict
 
 
+# Handler Class to handle the Users and Contacts entities
 class UserHandler:
 
-    def mapToDict(self, r):
-        result = {}
-        result['uid'] = r[0]
-        result['first_name'] = r[1]
-        result['last_name'] = r[2]
-        result['password'] = r[3]
-        result['phone'] = r[4]
-        result['email'] = r[5]
-        return result
+    # === User Getters === #
 
+    # List of users in the system
     def getAllUsers(self):
         dao = UserDAO()
         result = dao.getAllUsers()
         mapped_result = []
         for r in result:
-            mapped_result.append(self.mapToDict(r))
-        return jsonify(User=mapped_result)
+            mapped_result.append(buildDict.build_users_dict(r))
+        return jsonify(Users=mapped_result)
 
     def getUserById(self, id):
         dao = UserDAO()
@@ -28,23 +23,38 @@ class UserHandler:
         if result is None:
             return jsonify(Error="NOT FOUND"), 404
         else :
-            mapped = self.mapToDict(result)
-            return jsonify(User=mapped)
+            mapped = buildDict.build_users_dict(result)
+            return jsonify(Users=mapped)
 
-    def getUserByEmail(self, email):
+    # Information on a given user (by id)
+    def getUserInformationById(self, uid):
         dao = UserDAO()
-        result = dao.getUserByEmail(email)
+        result = dao.getUserInformationById(uid)
         if result is None:
             return jsonify(Error="NOT FOUND"), 404
-        else :
-            mapped = self.mapToDict(result)
-            return jsonify(User=mapped)
+        else:
+            # TODO: Edit
+            mapped = buildDict.build_users_dict(result)
+            return jsonify(Users=mapped)
 
-    def getUserByPhone(self, phone):
+    # Information on a given user (by username)
+    def getUserInformationByUsername(self, username):
         dao = UserDAO()
-        result = dao.getUserByPhone(phone)
+        result = dao.getUserInformationByUsername(username)
         if result is None:
             return jsonify(Error="NOT FOUND"), 404
-        else :
-            mapped = self.mapToDict(result)
-            return jsonify(User=mapped)
+        else:
+            # TODO: Edit
+            mapped = buildDict.build_users_dict(result)
+            return jsonify(Users=mapped)
+
+    # === Contacts Getters === #
+
+    # List of users in the contact list of some user X
+    def getContactsOfUser(self, uid):
+        dao = UserDAO()
+        result = dao.getContactsOfUser(uid)
+        mapped_result = []
+        for r in result:
+            mapped_result.append(buildDict.build_users_dict(r))
+        return jsonify(Users=mapped_result)
