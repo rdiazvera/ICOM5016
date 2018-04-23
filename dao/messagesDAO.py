@@ -29,16 +29,6 @@ class MessagesDAO:
         result = cursor.fetchone()
         return result
 
-    # List of messages posted to a chat group
-    def getMessageByGroupChatId(self, gid):
-        cursor = self.conn.cursor()
-        query = "select * from messages where gid = %s order by date_created;"
-        cursor.execute(query, (gid,))
-        result = []
-        for row in cursor:
-            result.append(row)
-        return result
-
     # === Reactions Getters === #
 
     def getAllReactions(self):
