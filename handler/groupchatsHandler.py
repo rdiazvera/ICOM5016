@@ -24,6 +24,15 @@ class GroupChatsHandler:
             mapped = buildDict.build_groupchats_dict(result)
             return jsonify(GroupChats=mapped)
 
+    # List of messages posted to a chat group
+    def getMessagesByGroupChatId(self, gid):
+        dao = GroupChatsDAO()
+        result = dao.getMessageByGroupChatId(gid)
+        mapped_result = []
+        for r in result:
+            mapped_result.append(buildDict.build_messages_dict(r))
+        return jsonify(Messages=mapped_result)
+
     # Owner of a given chat group
     def getOwnerOfGroupChat(self, gid):
         dao = GroupChatsDAO()

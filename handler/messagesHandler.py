@@ -28,14 +28,6 @@ class MessagesHandler:
                 mapped = buildDict.build_messages_dict(r)
             return jsonify(Messages=mapped)
 
-    # List of messages posted to a chat group
-    def getMessagesByGroupChatId(self, gid):
-        dao = MessagesDAO()
-        result = dao.getMessageByGroupChatId(gid)
-        mapped_result = []
-        for r in result:
-            mapped_result.append(buildDict.build_messages_dict(r))
-        return jsonify(Messages=mapped_result)
 
     # === Reactions Getters === #
 
