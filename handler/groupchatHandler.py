@@ -31,6 +31,7 @@ class GroupChatHandler:
         if result is None:
             return jsonify(Error="NOT FOUND"), 404
         else:
+            # TODO: Edit
             mapped = buildDict.build_users_dict(result)
             return jsonify(GroupChats=mapped)
 
