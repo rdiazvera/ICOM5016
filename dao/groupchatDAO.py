@@ -1,34 +1,57 @@
+from config.dbconfig import pg_config
+import psycopg2
+
+
+# Data Access Object (DAO) Class to access the GroupChats and Members entities
 class GroupChatDAO:
+
+    # Initialization Method (Class Constructor)
     def __init__(self):
-        G1 = [101, 'Los Cool', 424]
-        G2 = [74, 'Grupo Fisica Cuantica', 978]
-        G3 = [276, 'Proyecto de DB', 345]
+        connection_url = "dbname=%s user=%s password=%s" % (pg_config['dbname'], pg_config['user'], pg_config['passwd'])
+        self.conn = psycopg2._connect(connection_url)
 
-        self.data = []
-        self.data.append(G1)
-        self.data.append(G2)
-        self.data.append(G3)
+    # === GroupChat Getters === #
 
+    # List of chats group in the system
     def getAllGroupChats(self):
-        return self.data
-
-    def getGroupChatById(self, id):
-        for r in self.data:
-            if int(id) == r[0]:
-                return r
-        return None
-
-    def getGroupChatByName(self, name):
+        cursor = self.conn.cursor()
+        query = "select * from groupchats;"
+        cursor.execute(query)
         result = []
-        for r in self.data:
-            if r[1] == name:
-                result.append(r)
+        for row in cursor:
+            result.append(row)
         return result
 
-    def getGroupChatByOwnerId(self, ownerid):
+
+    def getGroupChatById(self, gid):
+        cursor = self.conn.cursor()
+        query = "select * from groupchats where gid = %s;"
+        cursor.execute(query, (gid,))
         result = []
-        for r in self.data:
-            if r[2] == int(ownerid):
-                result.append(r)
+        for row in cursor:
+            result.append(row)
         return result
 
+    # Owner of a given chat group
+    def getOwnerOfGroupChat(self, gid):
+        cursor = self.conn.cursor()
+        query = "select uid, first_name, last_name, password, phone, email " \
+                "from groupchats natural inner join users where gid = %s;"
+        cursor.execute(query, (gid,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    # === Members Getters === #
+
+    # List of users subscribed to a chat group
+    def getUsersInAGroupChat(self, gid):
+        cursor = self.conn.cursor()
+        query = "select uid, first_name, last_name, password, phone, email " \
+                "from members natural inner join users where gid = %s;"
+        cursor.execute(query, (gid,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
