@@ -22,27 +22,36 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
 
         this.loadMessages = function(){
 
-            $http.get("appjs/example.json").then(
+            var url = "http://127.0.0.1:5000/MessagingApp_DB/messages/";
+
+            $http.get(url).then(
                 function(response){
-                    var messageData = response.data.Messages;
-                    for(var i = 0; i < 5; i++){
-                        thisCtrl.messageList.push({"id": messageData[1].mid, "text": messageData[i].text, "author" : messageData[i].uid, "like" : 1, "nolike" : 1});
+                    console.log("response: " + JSON.stringify(response));
+                    thisCtrl.messageeList = response.data.Messages;
+                },
+                function(response){
+                    var status = response.status;
+                    if (status == 0){
+                        alert("No internet connection.");
                     }
+                    else if (status == 401){
+                        alert("Session Expired.");
+                    }
+                    else if (status == 403){
+                        alert("Not authorized.");
+                    }
+                    else if (status == 404){
+                        alert("Not Found.");
+                    }
+                    else {
+                        alert("Internal system error.");
+                    }
+                });
 
-                    $scope.example = messageData[1].text;
-                }
-            );
-
-            /*
-            // Get the messages from the server through the rest api
-            thisCtrl.messageList.push({"id": 2, "text": "Hola Mi Amigo", "author" : "Bob",
-            "like" : 4, "nolike" : 1});
-            thisCtrl.messageList.push({"id": 3, "text": "Hello World", "author": "Joe",
-                "like" : 11, "nolike" : 12});
-            */
-
-            $log.error("Message Loaded: ", JSON.stringify(thisCtrl.messageList));
+                $log.error("Message Loaded: ", JSON.stringify(thisCtrl.messageList));
         };
+
+
 
         this.postMsg = function(){
             var msg = thisCtrl.newText;
