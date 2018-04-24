@@ -9,14 +9,19 @@ def build_groupchats_dict(self, r):
     return result
 
 # Members Dictionary Builder
-def build_members_dict(self, r):
+def build_all_messages_dict(self, r):
     result = {}
-    result['uid'] = r[0]
-    result['gid'] = r[1]
-    result['membersid'] = r[2]
+    result['username'] = r[0]
+    result['mid'] = r[1]
+    result['text'] = r[2]
+    result['date_created'] = r[3]
+    result['author'] = r[4]
+    result['gid'] = r[5]
+    result['like'] = r[6]
+    result['dislike'] = r[7]
     return result
 
-# Messages Dictionary Builder
+# All Messages Dictionary Builder
 def build_messages_dict(self, r):
     result = {}
     result['mid'] = r[0]
@@ -31,6 +36,14 @@ def build_replies_dict(self, r):
     result = {}
     result['reply_mid'] = r[0]
     result['replied_mid'] = r[1]
+    return result
+
+# Members Dictionary Builder
+def build_members_dict(self, r):
+    result = {}
+    result['uid'] = r[0]
+    result['gid'] = r[1]
+    result['membersid'] = r[2]
     return result
 
 # Reactions Dictionary Builder
