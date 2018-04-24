@@ -57,9 +57,11 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         this.postMsg = function(){
             var msg = thisCtrl.newText;
             // Need to figure out who I am
-            var author = "Me";
+            var username = "EL_FELI_1924 ";
+            var Name = "Felipe Santiago"
             var nextId = thisCtrl.counter++;
-            thisCtrl.messageList.unshift({"id": nextId, "text" : msg, "author" : author, "like" : 0, "nolike" : 0});
+            thisCtrl.messageList.unshift({"mid": nextId, "text" : msg, "username" : username, "Name" : Name,
+            "like" : 0, "dislike" : 0, "date_created": "just now"});
             thisCtrl.newText = "";
         };
 
