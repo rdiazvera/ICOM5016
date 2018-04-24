@@ -40,12 +40,12 @@ class UsersHandler:
     # Information on a given user (by username)
     def getUserInformationByUsername(self, username):
         dao = UsersDAO()
-        result = dao.getUserInformationByUsername(self, username)
+        result = dao.getUserInformationByUsername(username)
         if result is None:
             return jsonify(Error="NOT FOUND"), 404
         else:
             # TODO: Edit
-            mapped = buildDict.build_users_dict(result)
+            mapped = buildDict.build_users_dict(self, result)
             return jsonify(Users=mapped)
 
     # === Contacts Getters === #
