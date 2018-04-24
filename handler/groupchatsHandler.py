@@ -36,7 +36,7 @@ class GroupChatsHandler:
     # Owner of a given chat group
     def getOwnerOfGroupChat(self, gid):
         dao = GroupChatsDAO()
-        result = dao.getGroupChatById(gid)
+        result = dao.getOwnerOfGroupChat(gid)
         if result is None:
             return jsonify(Error="NOT FOUND"), 404
         else:
@@ -46,9 +46,8 @@ class GroupChatsHandler:
     # List of users subscribed to a chat group
     def getUsersInAGroupChat(self, gid):
         dao = GroupChatsDAO()
-        result = dao.getGroupChatById(gid)
-        if result is None:
-            return jsonify(Error="NOT FOUND"), 404
-        else:
-            mapped = buildDict.build_users_dict(self, result)
-            return jsonify(GroupChats=mapped)
+        result = dao.getUsersInAGroupChat(gid)
+        mapped = []
+        for r in result:
+            mapped.append(buildDict.build_users_dict(self, r))
+        return jsonify(Users=mapped)

@@ -35,7 +35,7 @@ class GroupChatsDAO:
     # List of messages posted to a chat group
     def getMessageByGroupChatId(self, gid):
         cursor = self.conn.cursor()
-        query = "select mid, text, date_created, uid, gid from messages where gid = 3 order by date_created;"
+        query = "select mid, text, date_created, uid, gid from messages where gid = %s order by date_created;"
         cursor.execute(query, (gid,))
         result = []
         for row in cursor:
@@ -45,12 +45,10 @@ class GroupChatsDAO:
     # Owner of a given chat group
     def getOwnerOfGroupChat(self, gid):
         cursor = self.conn.cursor()
-        query = "select uid, first_name, last_name, password, phone, email " \
+        query = "select uid, first_name, last_name, password, phone, email, username " \
                 "from groupchats natural inner join users where gid = %s;"
         cursor.execute(query, (gid,))
-        result = []
-        for row in cursor:
-            result.append(row)
+        result = cursor.fetchone()
         return result
 
     # === Members Getters === #
@@ -58,7 +56,7 @@ class GroupChatsDAO:
     # List of users subscribed to a chat group
     def getUsersInAGroupChat(self, gid):
         cursor = self.conn.cursor()
-        query = "select uid, first_name, last_name, password, phone, email " \
+        query = "select uid, first_name, last_name, password, phone, email, username " \
                 "from members natural inner join users where gid = %s;"
         cursor.execute(query, (gid,))
         result = []
