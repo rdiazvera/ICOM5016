@@ -14,7 +14,7 @@ class MessagesHandler:
         result = dao.getAllMessages()
         mapped_result = []
         for r in result:
-            mapped_result.append(buildDict.build_messages_dict(r))
+            mapped_result.append(buildDict.build_messages_dict(self, r))
         return jsonify(Messages=mapped_result)
 
     def getMessageById(self, mid):
@@ -25,7 +25,7 @@ class MessagesHandler:
             return jsonify(Error="NOT FOUND"), 404
         else:
             for r in result:
-                mapped = buildDict.build_messages_dict(r)
+                mapped = buildDict.build_messages_dict(self, r)
             return jsonify(Messages=mapped)
 
 
@@ -36,7 +36,7 @@ class MessagesHandler:
         result = dao.getAllReactions()
         mapped_result = []
         for r in result:
-            mapped_result.append(buildDict.build_reactions_dict(r))
+            mapped_result.append(buildDict.build_reactions_dict(self, r))
         return jsonify(Reactions=mapped_result)
 
     # Number of likes to a message
@@ -45,18 +45,16 @@ class MessagesHandler:
         result = dao.getMessageById(mid)
         mapped = []
         for r in result:
-            # TODO: Edit
-            mapped.append(buildDict.build_reaction_count_dict(r))
+            mapped.append(buildDict.build_reaction_count_dict(self, r))
         return jsonify(Likes=mapped)
 
     # List of users who liked a message
     def getUsersWhoLikeMessage(self, mid):
         dao = MessagesDAO()
-        result = dao.getMessageByGroupChatId(mid)
+        result = dao.getUsersWhoLikeMessage(mid)
         mapped_result = []
         for r in result:
-            # TODO: Edit
-            mapped_result.append(buildDict.build_users_dict(r))
+            mapped_result.append(buildDict.build_users_dict(self, r))
         return jsonify(Users=mapped_result)
 
     # Number of dislikes to a message
@@ -66,18 +64,18 @@ class MessagesHandler:
         mapped = []
         for r in result:
 
-            mapped.append(buildDict.build_reaction_count_dict(r))
+            mapped.append(buildDict.build_reaction_count_dict(self, r))
         return jsonify(Dislikes=mapped)
 
 
     # List of users who dislikes a message
     def getUsersWhoDislikeMessage(self, mid):
         dao = MessagesDAO()
-        result = dao.getMessageByGroupChatId(mid)
+        result = dao.getUsersWhoDislikeMessage(mid)
         mapped_result = []
         for r in result:
             # TODO: Edit
-            mapped_result.append(buildDict.build_users_dict(r))
+            mapped_result.append(buildDict.build_users_dict(self, r))
         return jsonify(Users=mapped_result)
 
 
