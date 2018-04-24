@@ -2,8 +2,10 @@ from flask import Flask, request
 from handler.messagesHandler import MessagesHandler
 from handler.usersHandler import UsersHandler
 from handler.groupchatsHandler import GroupChatsHandler
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # Default Route
 @app.route('/')
