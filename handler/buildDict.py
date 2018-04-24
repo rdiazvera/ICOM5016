@@ -19,6 +19,7 @@ def build_all_messages_dict(self, r):
     result['gid'] = r[5]
     result['like'] = r[6]
     result['dislike'] = r[7]
+    result['Name'] = r[8]+r[9]
     return result
 
 # All Messages Dictionary Builder
