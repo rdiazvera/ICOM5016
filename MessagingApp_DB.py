@@ -1,11 +1,7 @@
 from flask import Flask, request
-from handler.messagesHandler import messageHandler
+from handler.messagesHandler import MessagesHandler
 from handler.usersHandler import UsersHandler
 from handler.groupchatsHandler import GroupChatsHandler
-from handler.memberHandler import MemberHandler
-from handler.hashtagHandler import HashtagHandler
-from handler.reactionHandler import ReactionHandler
-from handler.replyHandler import ReplyHandler
 
 app = Flask(__name__)
 
@@ -14,165 +10,70 @@ app = Flask(__name__)
 def welcome():
     return 'Welcome to the Social Messaging App - Default Route'
 
-# Home Route
-@app.route('/MessagingApp_DB/home/')
-def home():
-    return 'Home Route'
-
-# Log in Route
-@app.route('/MessagingApp_DB/login/')
-def log_in():
-    return 'Log in Route'
-
-# Sign up Route
-@app.route('/MessagingApp_DB/signup/')
-def signup():
-    return 'Sign Up Route'
-
-# Route to all elements from table 'Messages' also searches by ID using args
+# Route - List of all messages in the system
 @app.route('/MessagingApp_DB/messages/')
 def getAllMessages():
-    if request.args:
-        return messageHandler().getMessageBy(request.args)
-    else:
-        return messageHandler().getAllMessages()
+    return MessagesHandler().getAllMessages()
 
-# Route to get an element from table 'Messages' searching with an id
-@app.route('/MessagingApp_DB/messages/<int:mid>/')
-def getMessageById(mid):
-    return messageHandler().getMessageByID(mid)
+# Route - Number of likes to a message
+@app.route('/MessagingApp_DB/messages/<int:mid>/likes/count/')
+def getNumberOfLikes(mid):
+    return MessagesHandler().getNumberOfLikes(mid)
 
-# Route to get an element from table 'Messages' searching with an owner id
-@app.route('/MessagingApp_DB/messages/owner/<int:ownerid>/')
-def getMessagesByOwnerId(ownerid):
-    return messageHandler().getMessagesByOwnerID(ownerid)
+# Route - List of users who liked a message
+@app.route('/MessagingApp_DB/messages/<int:mid>/likes/users/')
+def getUsersWhoLikeMessage(mid):
+    return MessagesHandler().getUsersWhoLikeMessage(mid)
 
-# Route to get an element from table 'Messages' searching with a group chat id
-@app.route('/MessagingApp_DB/messages/groupchat/<int:gid>/')
+# Route - Number of dislikes to a message
+@app.route('/MessagingApp_DB/messages/<int:mid>/dislikes/count/')
+def getNumberOfDislikes(mid):
+    return MessagesHandler().getNumberOfDislikes(mid)
+
+# Route - List of users who dislikes a message
+@app.route('/MessagingApp_DB/messages/<int:mid>/dislikes/users/')
+def getUsersWhoDislikeMessage(mid):
+    return MessagesHandler().getUsersWhoDislikeMessage(mid)
+
+# Route - List of users in the contact list of some user X
+@app.route('/MessagingApp_DB/users/<int:uid>/contacts/')
+def getContactsOfUser(uid):
+    return UsersHandler().getContactsOfUser(uid)
+
+# Route - List of messages posted to a chat group
+@app.route('/MessagingApp_DB/groupchats/<int:gid>/messages/')
 def getMessagesByGroupChatId(gid):
-    return messageHandler().getMessagesByGroupChatID(gid)
+    return GroupChatsHandler().getMessagesByGroupChatId(gid)
 
-# Route to get an element from table 'Messages' searching with the date created
-@app.route('/MessagingApp_DB/messages/date/<string:date>/')
-def getMessagesByDate(date):
-    return messageHandler().getMessageByDate(date)
+# Route - List of users subscribed to a chat group
+@app.route('/MessagingApp_DB/groupchats/<int:gid>/users/')
+def getUsersInAGroupChat(gid):
+    return GroupChatsHandler().getUsersInAGroupChat(gid)
 
-# Route to all elements from table 'Users'
+# Route - List of users in the system
 @app.route('/MessagingApp_DB/users/')
 def getAllUsers():
     return UsersHandler().getAllUsers()
 
-# Route to get an element from table 'Users' searching with an id
-@app.route('/MessagingApp_DB/users/<int:uid>/')
-def getUserById(uid):
-    return UsersHandler().getUserById(uid)
-
-# Route to get an element from table 'users' searching with an email
-@app.route('/MessagingApp_DB/users/email/<string:email>')
-def getUserByEmail(email):
-    return UsersHandler().getUserByEmail(email)
-
-# Route to get an element from table 'users' searching with an phone
-@app.route('/MessagingApp_DB/users/phone/<string:phone>')
-def getUserByphone(phone):
-    return UsersHandler().getUserByPhone(phone)
-
-# Route to all elements from table 'GroupChat'
+# Route - List of chats group in the system
 @app.route('/MessagingApp_DB/groupchats/')
 def getAllGroupChats():
     return GroupChatsHandler().getAllGroupChats()
 
-# Route to get an element from table 'GroupChat' searching with an id
-@app.route('/MessagingApp_DB/groupchats/<int:gid>/')
-def getGroupChatsById(gid):
-    return GroupChatsHandler().getGroupChatById(gid)
+# Route - Owner of a given chat group
+@app.route('/MessagingApp_DB/groupchats/<int:gid>/owner')
+def getOwnerOfGroupChat(gid):
+    return GroupChatsHandler().getOwnerOfGroupChat(gid)
 
-# Route to get an element from table 'Groupchat' search with an owner id
-@app.route('/MessagingApp_DB/groupchats/owner/<int:ownerId>')
-def getGroupChatByOwnerId(ownerId):
-    return GroupChatsHandler().getGroupChatByOwnerId(ownerId)
+# Route - Information on a given user (by id)
+@app.route('/MessagingApp_DB/users/<int:uid>/')
+def getUserInformationById(uid):
+    return UsersHandler().getUserInformationById(uid)
 
-# Route to all elements from table 'Member'
-@app.route('/MessagingApp_DB/members/')
-def getAllMembers():
-    return MemberHandler().getAllMembers()
-
-# Route to get an element from table 'Member' searching with an id
-@app.route('/MessagingApp_DB/members/<int:mid>/')
-def getMemberById(mid):
-    return MemberHandler().getMemberById(mid)
-
-# Route to all elements from table 'Reaction'
-@app.route('/MessagingApp_DB/reactions/')
-def getAllReactions():
-    return ReactionHandler().getAllReactions()
-
-# Route to get an element from table 'Reaction' searching with an id
-@app.route('/MessagingApp_DB/reactions/<int:rid>/')
-def getReactionById(rid):
-    return ReactionHandler().getReactionById(rid)
-
-
-# Route to get an element from table 'Reaction' searching with an id
-@app.route('/MessagingApp_DB/reactions/type/<string:type>/')
-def getReactionByType(type):
-    return ReactionHandler().getReactionByType(type)
-
-
-# Route to all elements from table 'Reply'
-@app.route('/MessagingApp_DB/replies/')
-def getAllReplies():
-    return ReplyHandler().getAllReplies()
-
-# Route to get an element from table 'Reply' searching with an id
-@app.route('/MessagingApp_DB/replies/<int:rid>/')
-def getReplyById(rid):
-    return ReplyHandler().getReplyById(rid)
-
-# Route to all elements from table 'Hashtag'
-@app.route('/MessagingApp_DB/hashtags/')
-def getAllHashtags():
-    return HashtagHandler().getAllHashtags()
-
-# Route to get an element from table 'Hashtag' searching with an id
-@app.route('/MessagingApp_DB/hashtags/<int:hid>/')
-def getHashtagById(hid):
-    return HashtagHandler().getHashtagById(hid)
-
-# Route to statistics page
-@app.route('/MessagingApp_DB/statistics/')
-def statistics():
-    return 'Statistics Route'
-
-# Route to trending topics page
-@app.route('/MessagingApp_DB/statistics/trending/')
-def trendingStatistics():
-    return 'Statistics Route: Trending topics via #hashtags'
-
-# Route to message statistics page
-@app.route('/MessagingApp_DB/statistics/messages/')
-def messagesStatistics():
-    return 'Statistics Route: Number of message per day'
-
-# Route to replies statistics page
-@app.route('/MessagingApp_DB/statistics/replies/')
-def repliesStatistics():
-    return 'Statistics Route: Number of replies per day'
-
-# Route to likes statistics page
-@app.route('/MessagingApp_DB/statistics/likes/')
-def likeStatistics():
-    return 'Statistics Route: Number of likes'
-
-# Route to dislikes statistics page
-@app.route('/MessagingApp_DB/statistics/dislikes/')
-def dislikeStatistics():
-    return 'Statistics Route: Number of dislikes'
-
-# Route to active users statistics page
-@app.route('/MessagingApp_DB/statistics/activeusers/')
-def activeUserstatistics():
-    return 'Statistics Route: Active users'
+# Route - Information on a given user (by username)
+@app.route('/MessagingApp_DB/users/<string:username>/')
+def getUserInformationByUsername(username):
+    return UsersHandler().getUserInformationByUsername(username)
 
 if __name__ == '__main__':
     app.run()
