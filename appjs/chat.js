@@ -22,7 +22,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
 
         this.loadMessages = function(){
 
-            var url = "http://127.0.0.1:5000/MessagingApp_DB/messages/test";
+            var url = "http://127.0.0.1:5000/MessagingApp_DB/messages/";
 
             $http.get(url).then(
                 function(response){
