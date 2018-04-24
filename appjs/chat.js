@@ -1,5 +1,19 @@
 angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope',
     function($http, $log, $scope) {
+        /* TESTING FUNCTION
+        $scope.example = {};
+
+        $scope.getData = function(){
+            $http.get("appjs/example.json").then(
+                function(response){
+                    var messageData = response.data.Messages;
+                    $scope.example = messageData[1].text;
+                }
+            )
+        };
+        $scope.getData();
+        */
+
         var thisCtrl = this;
 
         this.messageList = [];
@@ -7,11 +21,25 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         this.newText = "";
 
         this.loadMessages = function(){
+
+            $http.get("appjs/example.json").then(
+                function(response){
+                    var messageData = response.data.Messages;
+                    for(var i = 0; i < 5; i++){
+                        thisCtrl.messageList.push({"id": messageData[1].mid, "text": messageData[i].text, "author" : messageData[i].uid, "like" : 1, "nolike" : 1});
+                    }
+
+                    $scope.example = messageData[1].text;
+                }
+            );
+
+            /*
             // Get the messages from the server through the rest api
-            thisCtrl.messageList.push({"id": 1, "text": "Hola Mi Amigo", "author" : "Bob",
+            thisCtrl.messageList.push({"id": 2, "text": "Hola Mi Amigo", "author" : "Bob",
             "like" : 4, "nolike" : 1});
-            thisCtrl.messageList.push({"id": 2, "text": "Hello World", "author": "Joe",
+            thisCtrl.messageList.push({"id": 3, "text": "Hello World", "author": "Joe",
                 "like" : 11, "nolike" : 12});
+            */
 
             $log.error("Message Loaded: ", JSON.stringify(thisCtrl.messageList));
         };
