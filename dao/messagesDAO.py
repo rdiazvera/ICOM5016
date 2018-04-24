@@ -53,7 +53,7 @@ class MessagesDAO:
         cursor = self.conn.cursor()
         query = "select uid, first_name, last_name, password, phone, email, " \
                 "username from users natural inner join (select uid from " \
-                "reactions natural inner join users where mid = %a and type= 'like') as P; "
+                "reactions natural inner join users where mid = %s and type= 'like') as P; "
         cursor.execute(query, (mid,))
         result = []
         for row in cursor:
@@ -71,8 +71,8 @@ class MessagesDAO:
     # List of users who dislikes a message
     def getUsersWhoDislikeMessage(self, mid):
         cursor = self.conn.cursor()
-        query = "select uid, first_name, last_name, password, phone, email, username" \
-                "from users natural inner join (select uid from reactions natural inner join" \
+        query = "select uid, first_name, last_name, password, phone, email, username " \
+                "from users natural inner join (select uid from reactions natural inner join " \
                 "users where mid = %s and type= 'dislike') as P;"
         cursor.execute(query, (mid,))
         result = []

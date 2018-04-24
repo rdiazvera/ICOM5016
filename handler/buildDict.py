@@ -64,12 +64,19 @@ def build_users_dict(self, r):
 # Contacts Dictionary Builder
 def build_contacts_dict(self, r):
     result = {}
-    result['user1_uid'] = r[0]
-    result['user2_uid'] = r[1]
+    result['uid'] = r[0]
+    result['first_name'] = r[1]
+    result['last_name'] = r[2]
+    result['password'] = r[3]
+    result['password'] = r[4]
+    result['phone'] = r[5]
+    result['email'] = r[6]
+    result['username'] = r[7]
     return result
 
 # Reaction Count Dictionary Builder
 def build_reaction_count_dict(self, r):
     result = {}
-    result['count'] = r[0]
+    result['count'] = r
     return result
+

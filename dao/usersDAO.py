@@ -25,7 +25,7 @@ class UsersDAO:
     #Information on a given user (by id)
     def getUserInformationById(self, uid):
         cursor = self.conn.cursor()
-        query = "select select uid, first_name, last_name, password, phone, email, username from users where uid = %s;"
+        query = "select uid, first_name, last_name, password, phone, email, username from users where uid = %s;"
         cursor.execute(query, (uid,))
         result = cursor.fetchone()
         return result
@@ -33,7 +33,7 @@ class UsersDAO:
     #Information on a given user (by username)
     def getUserInformationByUsername(self, username):
         cursor = self.conn.cursor()
-        query = "select select uid, first_name, last_name," \
+        query = "select uid, first_name, last_name," \
                 " password, phone, email, username from users where username = %s;"
         cursor.execute(query, (username,))
         result = cursor.fetchone()
@@ -44,10 +44,11 @@ class UsersDAO:
     # List of users in the contact list of some user X
     def getContactsOfUser(self, uid):
         cursor = self.conn.cursor()
-        query = "select * from users natural inner join (select users1_uid as uid from " \
+        query = "select uid, first_name, last_name, password, " \
+                "phone, email, username from users natural inner join (select users1_uid as uid from " \
                 "contacts where	users2_uid = %s union select users2_uid as uid from " \
                 "contacts where users1_uid = %s) as P; "
-        cursor.execute(query, (uid,))
+        cursor.execute(query, (uid, uid,))
         result = []
         for row in cursor:
             result.append(row)

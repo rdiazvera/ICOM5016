@@ -12,7 +12,7 @@ class GroupChatsHandler:
         result = dao.getAllGroupChats()
         mapped_result = []
         for r in result:
-            mapped_result.append(buildDict.build_groupchats_dict(r))
+            mapped_result.append(buildDict.build_groupchats_dict(self, r))
         return jsonify(GroupChats=mapped_result)
 
     def getGroupChatById(self, gid):
@@ -21,7 +21,7 @@ class GroupChatsHandler:
         if result is None:
             return jsonify(Error="NOT FOUND"), 404
         else:
-            mapped = buildDict.build_groupchats_dict(result)
+            mapped = buildDict.build_groupchats_dict(self, result)
             return jsonify(GroupChats=mapped)
 
     # List of messages posted to a chat group
@@ -30,25 +30,24 @@ class GroupChatsHandler:
         result = dao.getMessageByGroupChatId(gid)
         mapped_result = []
         for r in result:
-            mapped_result.append(buildDict.build_messages_dict(r))
+            mapped_result.append(buildDict.build_messages_dict(self, r))
         return jsonify(Messages=mapped_result)
 
     # Owner of a given chat group
     def getOwnerOfGroupChat(self, gid):
         dao = GroupChatsDAO()
-        result = dao.getGroupChatById(gid)
+        result = dao.getOwnerOfGroupChat(gid)
         if result is None:
             return jsonify(Error="NOT FOUND"), 404
         else:
-            mapped = buildDict.build_users_dict(result)
+            mapped = buildDict.build_users_dict(self, result)
             return jsonify(Users=mapped)
 
     # List of users subscribed to a chat group
     def getUsersInAGroupChat(self, gid):
         dao = GroupChatsDAO()
-        result = dao.getGroupChatById(gid)
-        if result is None:
-            return jsonify(Error="NOT FOUND"), 404
-        else:
-            mapped = buildDict.build_users_dict(result)
-            return jsonify(GroupChats=mapped)
+        result = dao.getUsersInAGroupChat(gid)
+        mapped = []
+        for r in result:
+            mapped.append(buildDict.build_users_dict(self, r))
+        return jsonify(Users=mapped)

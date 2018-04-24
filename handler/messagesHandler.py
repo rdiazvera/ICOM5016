@@ -42,7 +42,7 @@ class MessagesHandler:
     # Number of likes to a message
     def getNumberOfLikes(self, mid):
         dao = MessagesDAO()
-        result = dao.getMessageById(mid)
+        result = dao.getNumberOfLikes(mid)
         mapped = []
         for r in result:
             mapped.append(buildDict.build_reaction_count_dict(self, r))
@@ -60,7 +60,7 @@ class MessagesHandler:
     # Number of dislikes to a message
     def getNumberOfDislikes(self, mid):
         dao = MessagesDAO()
-        result = dao.getMessageById(mid)
+        result = dao.getNumberOfDislikes(mid)
         mapped = []
         for r in result:
 

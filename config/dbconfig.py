@@ -2,6 +2,6 @@
 
 pg_config = {
     'user' : 'appusr',
-    'passwd' : 'password',
+    'passwd' : 'a',
     'dbname' : 'MessagingApp_DB'
 }

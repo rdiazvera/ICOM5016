@@ -14,7 +14,7 @@ class UsersHandler:
         result = dao.getAllUsers()
         mapped_result = []
         for r in result:
-            mapped_result.append(buildDict.build_users_dict(r))
+            mapped_result.append(buildDict.build_users_dict(self, r))
         return jsonify(Users=mapped_result)
 
     def getUserById(self, id):
@@ -23,7 +23,7 @@ class UsersHandler:
         if result is None:
             return jsonify(Error="NOT FOUND"), 404
         else :
-            mapped = buildDict.build_users_dict(result)
+            mapped = buildDict.build_users_dict(self, result)
             return jsonify(Users=mapped)
 
     # Information on a given user (by id)
@@ -34,7 +34,7 @@ class UsersHandler:
             return jsonify(Error="NOT FOUND"), 404
         else:
             # TODO: Edit
-            mapped = buildDict.build_users_dict(result)
+            mapped = buildDict.build_users_dict(self, result)
             return jsonify(Users=mapped)
 
     # Information on a given user (by username)
@@ -45,7 +45,7 @@ class UsersHandler:
             return jsonify(Error="NOT FOUND"), 404
         else:
             # TODO: Edit
-            mapped = buildDict.build_users_dict(result)
+            mapped = buildDict.build_users_dict(self, result)
             return jsonify(Users=mapped)
 
     # === Contacts Getters === #
@@ -56,5 +56,5 @@ class UsersHandler:
         result = dao.getContactsOfUser(uid)
         mapped_result = []
         for r in result:
-            mapped_result.append(buildDict.build_users_dict(r))
+            mapped_result.append(buildDict.build_users_dict(self, r))
         return jsonify(Users=mapped_result)
