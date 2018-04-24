@@ -71,5 +71,6 @@ def build_contacts_dict(self, r):
 # Reaction Count Dictionary Builder
 def build_reaction_count_dict(self, r):
     result = {}
-    result['count'] = r[0]
+    result['count'] = r
     return result
+
