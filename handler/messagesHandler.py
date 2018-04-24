@@ -46,7 +46,7 @@ class MessagesHandler:
         mapped = []
         for r in result:
             # TODO: Edit
-            mapped = buildDict
+            mapped.append(buildDict.build_reaction_count_dict(r))
         return jsonify(Likes=mapped)
 
     # List of users who liked a message
@@ -65,8 +65,8 @@ class MessagesHandler:
         result = dao.getMessageById(mid)
         mapped = []
         for r in result:
-            # TODO: Edit
-             mapped = buildDict
+
+            mapped.append(buildDict.build_reaction_count_dict(r))
         return jsonify(Dislikes=mapped)
 
 

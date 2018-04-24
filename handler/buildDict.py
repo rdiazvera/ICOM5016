@@ -22,11 +22,8 @@ def build_messages_dict(self, r):
     result['mid'] = r[0]
     result['text'] = r[1]
     result['date_created'] = r[2]
-    result['num_likes'] = r[3]
-    result['num_dislikes'] = r[4]
-    result['num_replies'] = r[5]
-    result['ownerid'] = r[6]
-    result['groupchatid'] = r[7]
+    result['uid'] = r[3]
+    result['groupchatid'] = r[4]
     return result
 
 # Replies Dictionary Builder
@@ -34,16 +31,14 @@ def build_replies_dict(self, r):
     result = {}
     result['reply_mid'] = r[0]
     result['replied_mid'] = r[1]
-    result['rid'] = r[2]
     return result
 
 # Reactions Dictionary Builder
 def build_reactions_dict(self, r):
     result = {}
-    result['userid'] = r[0]
+    result['uid'] = r[0]
     result['messageid'] = r[1]
     result['type'] = r[2]
-    result['reactionid'] = r[3]
     return result
 
 # Hashtags Dictionary Builder
@@ -63,6 +58,7 @@ def build_users_dict(self, r):
     result['password'] = r[3]
     result['phone'] = r[4]
     result['email'] = r[5]
+    result['username'] = r[6]
     return result
 
 # Contacts Dictionary Builder
@@ -70,5 +66,10 @@ def build_contacts_dict(self, r):
     result = {}
     result['user1_uid'] = r[0]
     result['user2_uid'] = r[1]
-    result['contactid'] = r[1]
+    return result
+
+# Reaction Count Dictionary Builder
+def build_reaction_count_dict(self, r):
+    result = {}
+    result['count'] = r[0]
     return result

@@ -8,14 +8,14 @@ class MessagesDAO:
     # Initialization Method (Class Constructor)
     def __init__(self):
         connection_url = "dbname=%s user=%s password=%s" % (pg_config['dbname'], pg_config['user'], pg_config['passwd'])
-        self.conn = psycopg2._connect(connection_url)
+        self.conn = psycopg2.connect(connection_url)
 
     # === Messages Getters === #
 
     # List of all messages in the system
     def getAllMessages(self):
         cursor = self.conn.cursor()
-        query = "select * from messages;"
+        query = "select mid, text, date_created, uid, gid from messages;"
         cursor.execute(query)
         result = []
         for row in cursor:
@@ -24,7 +24,7 @@ class MessagesDAO:
 
     def getMessageById(self, mid):
         cursor = self.conn.cursor()
-        query = "select * from messages where mid = %s;"
+        query = "select mid, text, date_created, uid, gid from messages where mid = %s;"
         cursor.execute(query, (mid,))
         result = cursor.fetchone()
         return result
@@ -33,7 +33,7 @@ class MessagesDAO:
 
     def getAllReactions(self):
         cursor = self.conn.cursor()
-        query = "select * from reactions;"
+        query = "select uid, mid, type from reactions;"
         cursor.execute(query)
         result = []
         for row in cursor:
@@ -43,7 +43,7 @@ class MessagesDAO:
     # Number of likes to a message
     def getNumberOfLikes(self, mid):
         cursor = self.conn.cursor()
-        query = "select count(*) from reactions where mid = %s and type= \"like\";"
+        query = "select count(*) from reactions where mid = %s and type= 'like';"
         cursor.execute(query, (mid,))
         result = cursor.fetchone()
         return result
@@ -51,7 +51,9 @@ class MessagesDAO:
     # List of users who liked a message
     def getUsersWhoLikeMessage(self, mid):
         cursor = self.conn.cursor()
-        query = "select uid from reactions natural inner join users where mid = %s and type= \"like\";"
+        query = "select uid, first_name, last_name, password, phone, email, " \
+                "username from users natural inner join (select uid from " \
+                "reactions natural inner join users where mid = %a and type= 'like') as P; "
         cursor.execute(query, (mid,))
         result = []
         for row in cursor:
@@ -61,7 +63,7 @@ class MessagesDAO:
     # Number of dislikes to a message
     def getNumberOfDislikes(self, mid):
         cursor = self.conn.cursor()
-        query = "select count(*) from reactions where mid = %s and type= \"dislike\";"
+        query = "select count(*) from reactions where mid = %s and type= 'dislike';"
         cursor.execute(query, (mid,))
         result = cursor.fetchone()
         return result
@@ -69,7 +71,9 @@ class MessagesDAO:
     # List of users who dislikes a message
     def getUsersWhoDislikeMessage(self, mid):
         cursor = self.conn.cursor()
-        query = "select uid from reactions natural inner join users where mid = %s and type= \"like\";"
+        query = "select uid, first_name, last_name, password, phone, email, username" \
+                "from users natural inner join (select uid from reactions natural inner join" \
+                "users where mid = %s and type= 'dislike') as P;"
         cursor.execute(query, (mid,))
         result = []
         for row in cursor:

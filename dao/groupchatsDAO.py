@@ -8,14 +8,14 @@ class GroupChatsDAO:
     # Initialization Method (Class Constructor)
     def __init__(self):
         connection_url = "dbname=%s user=%s password=%s" % (pg_config['dbname'], pg_config['user'], pg_config['passwd'])
-        self.conn = psycopg2._connect(connection_url)
+        self.conn = psycopg2.connect(connection_url)
 
     # === GroupChat Getters === #
 
     # List of chats group in the system
     def getAllGroupChats(self):
         cursor = self.conn.cursor()
-        query = "select * from groupchats;"
+        query = "select gid, gname, uid from groupchats;"
         cursor.execute(query)
         result = []
         for row in cursor:
@@ -25,7 +25,7 @@ class GroupChatsDAO:
 
     def getGroupChatById(self, gid):
         cursor = self.conn.cursor()
-        query = "select * from groupchats where gid = %s;"
+        query = "select gid, gname, uid from groupchats where gid = %s;"
         cursor.execute(query, (gid,))
         result = []
         for row in cursor:
@@ -35,7 +35,7 @@ class GroupChatsDAO:
     # List of messages posted to a chat group
     def getMessageByGroupChatId(self, gid):
         cursor = self.conn.cursor()
-        query = "select * from messages where gid = %s order by date_created;"
+        query = "select mid, text, date_created, uid, gid from messages where gid = 3 order by date_created;"
         cursor.execute(query, (gid,))
         result = []
         for row in cursor:
