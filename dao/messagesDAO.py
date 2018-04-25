@@ -16,12 +16,13 @@ class MessagesDAO:
     def getAllMessages(self):
         cursor = self.conn.cursor()
        # query = "select mid, text, date_created, uid, gid from messages;"
-        query = "select username, messages.mid, text, date_created, messages.uid as " \
-                "author, gid, count(case when type = 'like' then 1 else null end) as like, count(case " \
-                "when type='dislike' then 1 else" \
-                " null end), first_name, last_name as dislike from messages, users, reactions where messages.uid " \
-                "= users.uid AND messages.mid = reactions.mid group by username, messages.mid, users.first_name, " \
-                "users.last_name order by date_created;"
+        query = "select username, messages.mid, text, date_created, uid as author, gid, coalesce(likes, 0)" \
+                " as likes, coalesce(dislikes,0) as dislikes, first_name, last_name from users natural inner" \
+                " join messages left join (select m.mid, count(case when type = 'like' then 1 else null end) " \
+                "as likes, count(case when type='dislike' then 1 else null end) as dislikes from messages as m, " \
+                "reactions as r where m.mid = r.mid group by m.mid) as reaction on messages.mid = reaction.mid " \
+                "group by messages.mid, username, uid, likes, dislikes order by date_created desc;"
+
         cursor.execute(query)
         result = []
         for row in cursor:
