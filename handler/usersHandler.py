@@ -48,6 +48,15 @@ class UsersHandler:
             mapped = buildDict.build_users_dict(self, result)
             return jsonify(Users=mapped)
 
+    # List of chat groups to which a user belongs
+    def getGroupChatbyUserId(self, uid):
+        dao = UsersDAO()
+        result = dao.getGroupChatbyUserId()
+        mapped_result = []
+        for r in result:
+            mapped_result.append(buildDict.build_groupchats_dict(self, r))
+        return jsonify(GroupChats=mapped_result)
+
     # === Contacts Getters === #
 
     # List of users in the contact list of some user X
@@ -57,4 +66,4 @@ class UsersHandler:
         mapped_result = []
         for r in result:
             mapped_result.append(buildDict.build_users_dict(self, r))
-        return jsonify(Users=mapped_result)
+        return jsonify(Contacts=mapped_result)

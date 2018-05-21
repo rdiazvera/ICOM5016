@@ -41,7 +41,7 @@ class GroupChatsHandler:
             return jsonify(Error="NOT FOUND"), 404
         else:
             mapped = buildDict.build_users_dict(self, result)
-            return jsonify(Users=mapped)
+            return jsonify(Owner=mapped)
 
     # List of users subscribed to a chat group
     def getUsersInAGroupChat(self, gid):

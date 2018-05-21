@@ -22,7 +22,7 @@ class UsersDAO:
             result.append(row)
         return result
 
-    #Information on a given user (by id)
+    # Information on a given user (by id)
     def getUserInformationById(self, uid):
         cursor = self.conn.cursor()
         query = "select uid, first_name, last_name, password, phone, email, username from users where uid = %s;"
@@ -30,13 +30,24 @@ class UsersDAO:
         result = cursor.fetchone()
         return result
 
-    #Information on a given user (by username)
+    # Information on a given user (by username)
     def getUserInformationByUsername(self, username):
         cursor = self.conn.cursor()
         query = "select uid, first_name, last_name," \
                 " password, phone, email, username from users where username = %s;"
         cursor.execute(query, (username,))
         result = cursor.fetchone()
+        return result
+
+    # List of chat groups to which a user belongs
+    def getGroupChatbyUserId(self, uid):
+        cursor = self.conn.cursor()
+        #TODO
+        #query = ""
+        #cursor.execute(query, ())
+        result = []
+        for row in cursor:
+            result.append(row)
         return result
 
     # === Contacts Getters === #

@@ -12,6 +12,10 @@ CORS(app)
 def welcome():
     return 'Welcome to the Social Messaging App - Default Route'
 
+
+# -- Phase II Routes -- #
+
+
 # Route - List of all messages in the system
 @app.route('/MessagingApp_DB/messages/')
 def getAllMessages():
@@ -76,6 +80,33 @@ def getUserInformationById(uid):
 @app.route('/MessagingApp_DB/users/<string:username>/')
 def getUserInformationByUsername(username):
     return UsersHandler().getUserInformationByUsername(username)
+
+
+# -- Phase III Routes -- #
+
+
+# Route - Ability to login a user
+
+# Route - Ability to add new user
+
+# Route - Ability to post a new message
+
+# Route - Ability to join a chat group
+
+# Route - Ability to like a message
+
+# Route - Ability to dislike a message
+
+# Route - List of chat groups to which a user belongs
+@app.route('/MessagingApp_DB/users/<int:uid>/groupchats/')
+def getGroupChatByUserId(uid):
+    return UsersHandler().getGroupChatbyUserId(uid)
+
+# Route - List of messages in a given chat group
+
+# Route - List of messages with a given Hashtag on a chat group
+
+# Route - The ability to post a reply to a message
 
 if __name__ == '__main__':
     app.run()
