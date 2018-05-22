@@ -48,10 +48,12 @@ class UsersHandler:
             mapped = buildDict.build_users_dict(self, result)
             return jsonify(Users=mapped)
 
+    # === PHASE 3 === #
+
     # List of chat groups to which a user belongs
     def getGroupChatbyUserId(self, uid):
         dao = UsersDAO()
-        result = dao.getGroupChatbyUserId()
+        result = dao.getGroupChatbyUserId(uid)
         mapped_result = []
         for r in result:
             mapped_result.append(buildDict.build_groupchats_dict(self, r))
@@ -67,3 +69,36 @@ class UsersHandler:
         for r in result:
             mapped_result.append(buildDict.build_users_dict(self, r))
         return jsonify(Contacts=mapped_result)
+
+    def loginUser(self, form):
+        dao = UsersDAO()
+        username = form['username']
+        password = form['password']
+        result = dao.loginUser(username, password)
+        if result is None:
+            return jsonify(Error="NOT FOUND"), 404
+        else:
+            mapped = buildDict.build_users_dict(self, result)
+            return jsonify(Users=mapped)
+
+    def registerUser(self, form):
+        if len(form) != 6:
+            return jsonify(Error="Malformed Post Request"), 400
+        else:
+            username = form['username']
+            password = form['password']
+            first_name = form['first_name']
+            last_name = form['last_name']
+            email = form['email']
+            phone = form['phone']
+            if username and password and first_name and last_name and email and phone:
+                dao = UsersDAO()
+                uid = dao.registerUser(username, password, first_name, last_name, email, phone)
+                result = buildDict.build_users_dict_by_att(uid, first_name, last_name, password, phone, email, username)
+                return jsonify(User=result), 201
+            else:
+                return jsonify(Error="Unexpected attributes in this post request"), 400
+
+
+
+

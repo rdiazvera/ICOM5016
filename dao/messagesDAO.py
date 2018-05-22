@@ -87,6 +87,19 @@ class MessagesDAO:
             result.append(row)
         return result
 
+    # === PHASE 3 === #
+    def addReactions(self, mid, uid, type):
+        cursor = self.conn.cursor()
+        query = "insert into reactions (uid, mid, type) "\
+                "values (%s, %s, %s) returning mid;"
+        cursor.execute(query, (mid, uid, type,))
+        mid = cursor.fetchone()[0]
+        self.conn.commit()
+        return mid
+
+
+
+
     # === Replies Getters === #
 
     # === Hashtags Getters === #

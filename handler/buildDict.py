@@ -32,6 +32,16 @@ def build_messages_dict(self, r):
     result['groupchatid'] = r[4]
     return result
 
+# Message dict by attr
+def build_msg_dict_by_att(self, mid, text, date_created, gid, uid):
+    result = {}
+    result['mid'] = mid
+    result['text'] = text
+    result['date_created'] = date_created
+    result['uid'] = uid
+    result['groupchatid'] = gid
+    return result
+
 # Replies Dictionary Builder
 def build_replies_dict(self, r):
     result = {}
@@ -73,6 +83,17 @@ def build_users_dict(self, r):
     result['phone'] = r[4]
     result['email'] = r[5]
     result['username'] = r[6]
+    return result
+
+def build_users_dict_by_att(self, uid, first_name, last_name, password, phone, email, username):
+    result = {}
+    result['uid'] = uid
+    result['first_name'] = first_name
+    result['last_name'] = last_name
+    result['password'] = password
+    result['phone'] = phone
+    result['email'] = email
+    result['username'] = username
     return result
 
 # Contacts Dictionary Builder

@@ -63,3 +63,33 @@ class GroupChatsDAO:
         for row in cursor:
             result.append(row)
         return result
+
+    # == PHASE 3 == #
+    def postMessage(self, gid, text, uid):
+        cursor = self.conn.cursor()
+        query = "INSERT into messages(text, date_created, uid, gid) values (%s, current_time, %s, %s) returning mid, "\
+                "date_created;"
+        cursor.execute(query, (text, uid, gid))
+        mid = []
+        for row in cursor:
+            mid.append(row)
+        self.conn.commit()
+        return mid
+
+    def addUsersToGroupChat(self, gid, uid):
+        cursor = self.conn.cursor()
+        query = "INSERT into members(gid, uid) values (%s, %s) returning gid;"
+        cursor.execute(query, (gid, uid))
+        gid = cursor.fetchone()[0]
+        self.conn.commit()
+        return gid
+
+    def getMessagesByHashTagInGroup(self, gid, hstring):
+        cursor = self.conn.cursor()
+        query = "select * from groupchats natural inner join messages where mid in (select mid from" \
+                "hashtags where hstring = '%s') and gid = %s;"
+        cursor.execute(query, (hstring, gid))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result

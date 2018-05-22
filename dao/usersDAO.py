@@ -42,9 +42,8 @@ class UsersDAO:
     # List of chat groups to which a user belongs
     def getGroupChatbyUserId(self, uid):
         cursor = self.conn.cursor()
-        #TODO
-        #query = ""
-        #cursor.execute(query, ())
+        query = "select * from groupchats where gid in (select gid from members where uid = %s)"
+        cursor.execute(query, uid)
         result = []
         for row in cursor:
             result.append(row)
@@ -64,3 +63,25 @@ class UsersDAO:
         for row in cursor:
             result.append(row)
         return result
+
+    # === Phase 3 === #
+
+    # == Login User == #
+
+    def loginUser(self, username, password):
+        cursor = self.conn.cursor()
+        query = "select * from users where username = '%s' and password = '%s'"
+        cursor.execute(query, (username, password,))
+        result = cursor.fetchone()
+        return result
+
+    # == Register user === #
+
+    def registerUser(self, username, password, first_name, last_name, email, phone):
+        cursor = self.conn.cursor()
+        query = "insert into users(first_name, last_name, password, phone, email, username) " \
+                "values (%s, %s, %s, %s, %s, %s) returning uid;"
+        cursor.execute(query, (first_name, last_name, password, phone, email, username))
+        uid = cursor.fetchone()[0]
+        self.conn.commit()
+        return uid

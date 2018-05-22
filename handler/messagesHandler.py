@@ -74,11 +74,21 @@ class MessagesHandler:
         result = dao.getUsersWhoDislikeMessage(mid)
         mapped_result = []
         for r in result:
-            # TODO: Edit
             mapped_result.append(buildDict.build_users_dict(self, r))
         return jsonify(Users=mapped_result)
 
+    # === PHASE 3 === #
+
+    def addReactions(self, mid, form):
+        uid = form['uid']
+        type = form['type']
+        MessagesDAO().addReactions(mid, uid, type)
+
+
+
+    #
 
     # === Replies Getters === #
+
 
     # === Hashtags Getters === #
