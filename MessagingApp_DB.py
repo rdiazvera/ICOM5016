@@ -27,7 +27,7 @@ def getNumberOfLikes(mid):
     if request.method == 'GET':
         return MessagesHandler().getNumberOfLikes(mid)
     else:
-        return MessagesHandler().addReactions(mid, request.form)
+        return MessagesHandler().addReactions(request.form)
 
 # Route - List of users who liked a message
 @app.route('/MessagingApp_DB/messages/<int:mid>/likes/users/')

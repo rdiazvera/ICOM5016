@@ -63,7 +63,6 @@ class MessagesHandler:
         result = dao.getNumberOfDislikes(mid)
         mapped = []
         for r in result:
-
             mapped.append(buildDict.build_reaction_count_dict(self, r))
         return jsonify(Dislikes=mapped)
 
@@ -79,10 +78,13 @@ class MessagesHandler:
 
     # === PHASE 3 === #
 
-    def addReactions(self, mid, form):
+    def addReactions(self, form):
         uid = form['uid']
+        mid = form['mid']
         type = form['type']
-        MessagesDAO().addReactions(mid, uid, type)
+        MessagesDAO().addReactions(uid, mid, type)
+        result = buildDict.build_reaction_dict_by_attr(uid, mid, type)
+        return jsonify(Reaction=result), 201
 
 
 

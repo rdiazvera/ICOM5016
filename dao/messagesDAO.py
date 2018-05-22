@@ -92,7 +92,7 @@ class MessagesDAO:
         cursor = self.conn.cursor()
         query = "insert into reactions (uid, mid, type) "\
                 "values (%s, %s, %s) returning mid;"
-        cursor.execute(query, (mid, uid, type,))
+        cursor.execute(query, (uid, mid, type,))
         mid = cursor.fetchone()[0]
         self.conn.commit()
         return mid

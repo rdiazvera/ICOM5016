@@ -65,6 +65,14 @@ def build_reactions_dict(self, r):
     result['type'] = r[2]
     return result
 
+def build_reaction_dict_by_attr(self, uid, mid, type):
+    result = {}
+    result['uid'] = uid
+    result['messageid'] = mid
+    result['type'] = type
+    return result
+
+
 # Hashtags Dictionary Builder
 def build_hashtags_dict(self, r):
     result = {}
