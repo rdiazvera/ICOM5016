@@ -94,7 +94,7 @@ class UsersHandler:
             if username and password and first_name and last_name and email and phone:
                 dao = UsersDAO()
                 uid = dao.registerUser(username, password, first_name, last_name, email, phone)
-                result = buildDict.build_users_dict_by_att(uid, first_name, last_name, password, phone, email, username)
+                result = buildDict.build_users_dict_by_att(self, uid, first_name, last_name, password, phone, email, username)
                 return jsonify(User=result), 201
             else:
                 return jsonify(Error="Unexpected attributes in this post request"), 400

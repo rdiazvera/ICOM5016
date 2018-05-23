@@ -27,7 +27,10 @@ def getNumberOfLikes(mid):
     if request.method == 'GET':
         return MessagesHandler().getNumberOfLikes(mid)
     else:
-        return MessagesHandler().addReactions(request.form)
+        # print(request.json)
+        # for row in request.json:
+        #     print(row)
+        return MessagesHandler().addReactions(request.json)
 
 # Route - List of users who liked a message
 @app.route('/MessagingApp_DB/messages/<int:mid>/likes/users/')
@@ -40,7 +43,7 @@ def getNumberOfDislikes(mid):
     if request.method == 'GET':
         return MessagesHandler().getNumberOfDislikes(mid)
     else:
-        return MessagesHandler().addReactions(mid, request.form)
+        return MessagesHandler().addReactions(request.json)
 
 # Route - List of users who dislikes a message
 @app.route('/MessagingApp_DB/messages/<int:mid>/dislikes/users/')

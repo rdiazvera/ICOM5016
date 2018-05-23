@@ -62,7 +62,7 @@ class GroupChatsHandler:
             if text:
                 dao = GroupChatsDAO()
                 values = dao.postMessage(gid, text, uid)
-                result = buildDict.build_msg_dict_by_att(values[0], text, values[1], gid, uid)
+                result = buildDict.build_msg_dict_by_att(self, values[0], text, values[1], gid, uid)
                 return jsonify(Message=result), 201
             else:
                 return jsonify(Error="Unexpected attributes in this post request"), 400
@@ -70,7 +70,7 @@ class GroupChatsHandler:
     def addUsersToGroupChat(self, gid, form):
         uid = form['uid']
         GroupChatsDAO().addUsersToGroupChat(gid, uid)
-        result = buildDict.build_members_dict(uid, gid)
+        result = buildDict.build_members_dict(self, uid, gid)
         return jsonify(Member=result), 201
 
     def getMessagesByHashTagInGroup(self, gid, form):

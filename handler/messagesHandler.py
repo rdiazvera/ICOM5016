@@ -83,7 +83,7 @@ class MessagesHandler:
         mid = form['mid']
         type = form['type']
         MessagesDAO().addReactions(uid, mid, type)
-        result = buildDict.build_reaction_dict_by_attr(uid, mid, type)
+        result = buildDict.build_reaction_dict_by_attr(self, uid, mid, type)
         return jsonify(Reaction=result), 201
 
 

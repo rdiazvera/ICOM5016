@@ -50,18 +50,13 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         };
 
         this.likeMsg = function(){
-            var url = "http://127.0.0.1:5000/MessagingApp_DB/messages/7/likes/count/";
-            var data = JSON.stringify({uid: 1, mid: 7, type: "like" })
+            var url = "http://127.0.0.1:5000/MessagingApp_DB/messages/2/likes/count/";
+            var data = JSON.stringify({uid: 2, mid: 7, type: "like" })
             $http.post(url, data).then(
-//                function(data){
-//                    console.log(data);
-//                    console.log("1");
-//                },
 
                 function(response){
-                   // console.log(data);
+                    console.log(data);
                     console.log("response: " + JSON.stringify(response));
-                    console.log("2");
                 },
                 function(response){
                     console.log("3");
@@ -88,7 +83,38 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         };
 
         this.dislikeMsg = function(){
-            alert("The \"Dislike\" button is under construction.");
+
+            var url = "http://127.0.0.1:5000/MessagingApp_DB/messages/2/dislikes/count/";
+            //"http://127.0.0.1:5000/MessagingApp_DB/messages/"+"<int:+" data[1] + ">/dislikes/count/";
+            var data = JSON.stringify({uid: 5, mid: 7, type: "dislike" })
+            $http.post(url, data).then(
+
+                function(response){
+                    console.log(data);
+                    console.log("response: " + JSON.stringify(response));
+                },
+                function(response){
+                    console.log("3");
+                    console.log(response.status);
+                    var status = response.status;
+                    if (status == 0){
+                        alert("No internet connection.");
+                    }
+                    else if (status == 401){
+                        alert("Session Expired.");
+                    }
+                    else if (status == 403){
+                        alert("Not authorized.");
+                    }
+                    else if (status == 404){
+                        alert("Not Found.");
+                    }
+                    else {
+                        alert("Internal system error.");
+                    }
+                });
+
+                //$log.error("Message Loaded: ", JSON.stringify(thisCtrl.messageList));
         };
 
         this.replyMsg = function(){
