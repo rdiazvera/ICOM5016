@@ -8,6 +8,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
 
         this.loadMessages = function(){
 
+            console.log("test");
             var url = "http://127.0.0.1:5000/MessagingApp_DB/messages/";
 
             $http.get(url).then(
@@ -51,7 +52,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
 
         this.likeMsg = function(){
             var url = "http://127.0.0.1:5000/MessagingApp_DB/messages/2/likes/count/";
-            var data = JSON.stringify({uid: 2, mid: 7, type: "like" })
+            var data = JSON.stringify({uid: 4, mid: 5, type: "like" })
             $http.post(url, data).then(
 
                 function(response){
@@ -78,7 +79,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
                         alert("Internal system error.");
                     }
                 });
-
+        this.loadMessages();
                 //$log.error("Message Loaded: ", JSON.stringify(thisCtrl.messageList));
         };
 
@@ -86,7 +87,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
 
             var url = "http://127.0.0.1:5000/MessagingApp_DB/messages/2/dislikes/count/";
             //"http://127.0.0.1:5000/MessagingApp_DB/messages/"+"<int:+" data[1] + ">/dislikes/count/";
-            var data = JSON.stringify({uid: 5, mid: 7, type: "dislike" })
+            var data = JSON.stringify({uid: 3, mid: 5, type: "dislike" })
             $http.post(url, data).then(
 
                 function(response){
@@ -112,8 +113,9 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
                     else {
                         alert("Internal system error.");
                     }
-                });
 
+                });
+        this.loadMessages();
                 //$log.error("Message Loaded: ", JSON.stringify(thisCtrl.messageList));
         };
 
