@@ -1,7 +1,7 @@
 from flask import jsonify
 from dao.groupchatsDAO import GroupChatsDAO
 from handler import buildDict
-
+import datetime
 
 # Handler Class to handle the GroupChats and Members entities
 class GroupChatsHandler:
@@ -54,7 +54,7 @@ class GroupChatsHandler:
 
     # === Phase 3 === #
     def postMessage(self, gid, form):
-        if len(form) != 1:
+        if len(form) != 2:
             return jsonify(Error="Malformed Post Request"), 400
         else:
             text = form['text']
@@ -62,7 +62,8 @@ class GroupChatsHandler:
             if text:
                 dao = GroupChatsDAO()
                 values = dao.postMessage(gid, text, uid)
-                result = buildDict.build_msg_dict_by_att(self, values[0], text, values[1], gid, uid)
+                #print(values.__sizeof__())
+                result = buildDict.build_msg_dict_by_att(self, values[0], text, datetime.datetime.now(), uid, gid)
                 return jsonify(Message=result), 201
             else:
                 return jsonify(Error="Unexpected attributes in this post request"), 400
@@ -70,19 +71,13 @@ class GroupChatsHandler:
     def addUsersToGroupChat(self, gid, form):
         uid = form['uid']
         GroupChatsDAO().addUsersToGroupChat(gid, uid)
-        result = buildDict.build_members_dict(self, uid, gid)
+        result = buildDict.build_members_dict_by_attr(self, uid, gid)
         return jsonify(Member=result), 201
 
-    def getMessagesByHashTagInGroup(self, gid, form):
-        if len(form) != 1:
-            return jsonify(Error="Malformed Post Request"), 400
-        else:
-            hstring = form['hstring']
-            if hstring:
-                mapped_result = []
-                result = GroupChatsDAO().getMessagesByHashTagInGroup(gid, hstring)
-                for r in result:
-                    mapped_result.append(buildDict.build_messages_dict(self, r))
-                return jsonify(Message=result), 201
-            else:
-                return jsonify(Error="Unexpected attributes in this post request"), 400
+    def getMessagesByHashTagInGroup(self, gid, hstring):
+        mapped_result = []
+        result = GroupChatsDAO().getMessagesByHashTagInGroup(gid, hstring)
+        for r in result:
+            mapped_result.append(buildDict.build_messages_dict(self, r))
+        return jsonify(Message=result), 201
+

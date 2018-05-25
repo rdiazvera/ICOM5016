@@ -43,7 +43,7 @@ class UsersDAO:
     def getGroupChatbyUserId(self, uid):
         cursor = self.conn.cursor()
         query = "select * from groupchats where gid in (select gid from members where uid = %s)"
-        cursor.execute(query, uid)
+        cursor.execute(query, (uid,))
         result = []
         for row in cursor:
             result.append(row)
@@ -70,7 +70,7 @@ class UsersDAO:
 
     def loginUser(self, username, password):
         cursor = self.conn.cursor()
-        query = "select * from users where username = '%s' and password = '%s'"
+        query = "select * from users where username = %s and password = %s"
         cursor.execute(query, (username, password,))
         result = cursor.fetchone()
         return result

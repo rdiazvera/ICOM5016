@@ -54,7 +54,14 @@ def build_members_dict(self, r):
     result = {}
     result['uid'] = r[0]
     result['gid'] = r[1]
-    result['membersid'] = r[2]
+   # result['membersid'] = r[2]
+    return result
+
+def build_members_dict_by_attr(self, uid, gid):
+    result = {}
+    result['uid'] = uid
+    result['gid'] = gid
+    #result['membersid'] = mid
     return result
 
 # Reactions Dictionary Builder

@@ -71,17 +71,15 @@ class UsersHandler:
         return jsonify(Contacts=mapped_result)
 
     def loginUser(self, form):
-        dao = UsersDAO()
         username = form['username']
         password = form['password']
+        dao = UsersDAO()
         result = dao.loginUser(username, password)
-        if result is None:
-            return jsonify(Error="NOT FOUND"), 404
-        else:
-            mapped = buildDict.build_users_dict(self, result)
-            return jsonify(Users=mapped)
+        mapped = buildDict.build_users_dict(self, result)
+        return jsonify(Users=mapped)
 
     def registerUser(self, form):
+        print(len(form))
         if len(form) != 6:
             return jsonify(Error="Malformed Post Request"), 400
         else:

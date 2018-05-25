@@ -27,9 +27,6 @@ def getNumberOfLikes(mid):
     if request.method == 'GET':
         return MessagesHandler().getNumberOfLikes(mid)
     else:
-        # print(request.json)
-        # for row in request.json:
-        #     print(row)
         return MessagesHandler().addReactions(request.json)
 
 # Route - List of users who liked a message
@@ -59,13 +56,13 @@ def getContactsOfUser(uid):
 @app.route('/MessagingApp_DB/groupchats/<int:gid>/messages/', methods=['GET', 'POST'])
 def getMessagesByGroupChatId(gid):
     if request.method == 'GET':
-        if not request.args:
             return GroupChatsHandler().getMessagesByGroupChatId(gid)
-        else:
-            return GroupChatsHandler().getMessagesByHashTagInGroup(gid, request.args)
-
     else:
-        return GroupChatsHandler().postMessage(gid, request.form)
+        return GroupChatsHandler().postMessage(gid, request.json)
+
+@app.route('/MessagingApp_DB/groupchats/<int:gid>/hashtags/<string:hstring>')
+def MessagesByHashTagInGroup(gid, hstring):
+    return GroupChatsHandler().getMessagesByHashTagInGroup(gid, hstring)
 
 # Route - List of users subscribed to a chat group
 @app.route('/MessagingApp_DB/groupchats/<int:gid>/users/', methods=['GET', 'POST'])
@@ -73,7 +70,7 @@ def getUsersInAGroupChat(gid):
     if request.method == 'GET':
         return GroupChatsHandler().getUsersInAGroupChat(gid)
     else:
-        return GroupChatsHandler().addUsersToGroupChat(gid, request.form)
+        return GroupChatsHandler().addUsersToGroupChat(gid, request.json)
 
 # Route - List of users in the system
 @app.route('/MessagingApp_DB/users/')
@@ -106,15 +103,21 @@ def getUserInformationByUsername(username):
 
 # Route - Ability to login a user
 
-@app.route('/MessagingApp_DB/users/login/')
+# @app.route('/MessagingApp_DB/users/<string:username>/login/<string:password>')
+# def loginUser(username, password):
+#     return UsersHandler().loginUser(username, password)
+
+@app.route('/MessagingApp_DB/users/login/', methods=['GET', 'POST'])
 def loginUser():
-    return UsersHandler().loginUser(request.form)
+    if request.method == 'POST':
+        return UsersHandler().loginUser(request.json)
 
 # Route - Ability to add new user
 
-@app.route('/MessagingApp_DB/users/register/')
+@app.route('/MessagingApp_DB/users/register/', methods=['GET', 'POST'])
 def registerUser():
-    return UsersHandler().registerUser(request.form)
+    if request.method == 'POST':
+        return UsersHandler().registerUser(request.json)
 
 # Route - Ability to post a new message
 #
@@ -124,19 +127,6 @@ def registerUser():
 
 # Route - Ability to join a chat group
 
-
-
-# Route - Ability to like a message
-
-# @app.route('/MessagingApp_DB/messages/<int:mid>/likes/users/<int:uid>')
-# def addLikeToMessage(mid, uid):
-#     return MessagesHandler().addLikeToMessage(uid, mid)
-
-# Route - Ability to dislike a message
-
-# @app.route('/MessagingApp_DB/messages/<int:mid>/dislikes/users/<int:uid>')
-# def addDislikeToMessage(mid, uid):
-#     return MessagesHandler().addDislikeToMessage(uid, mid)
 
 # Route - List of chat groups to which a user belongs
 @app.route('/MessagingApp_DB/users/<int:uid>/groupchats/')
