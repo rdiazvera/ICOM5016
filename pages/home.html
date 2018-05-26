@@ -1,0 +1,38 @@
+<div ng-cloak class="align-content-center px-3 py-3"></div>
+
+        <div ng-repeat="g in homeCtrl.groupChatList">
+            <div class="row">
+                <div class="col s12 m12">
+                    <div class="card bg-light my-3 rounded">
+                        <div class="card-header">
+                            <h5 class="font-weight-bold">{{g.gid}} <small class="text-muted"> {{g.gname}}</small></h5>
+                        </div>
+                        <div class="card-body" >
+                            <div class="card-title">
+                            {{g.uid}}
+                            </div>
+                            <div class="card-subtitle">
+                            {{g.gname}}
+                            </div>
+                            <!--<div class="card-text">-->
+                                <!--<h4>{{m.text}}</h4>-->
+                                <!--<div class="text-right">-->
+                                    <!--<span class="text-muted font-italic">{{m.date_created}}</span>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        </div>
+                        <div class ="card-footer">
+                            <a class="btn btn-dark text-white" role="button" ng-click= "goToChat(g.gid);">
+                            </a>
+                            <!--&lt;!&ndash;<a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.dislikeMsg(); chatCtrl.loadMessages();">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<span class="oi oi-thumb-down" title="thumb-down" aria-hidden="true"></span> Unlike&ndash;&gt;-->
+                                <!--&lt;!&ndash;<span ng-bind= "m.dislike"> </span>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.replyMsg(); chatCtrl.loadMessages();">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<span class="oi oi-share" title="share" aria-hidden="true"></span> Reply&ndash;&gt;-->
+                            <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

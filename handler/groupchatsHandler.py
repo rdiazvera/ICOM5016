@@ -30,7 +30,7 @@ class GroupChatsHandler:
         result = dao.getMessageByGroupChatId(gid)
         mapped_result = []
         for r in result:
-            mapped_result.append(buildDict.build_messages_dict(self, r))
+            mapped_result.append(buildDict.build_all_messages_dict(self, r))
         return jsonify(Messages=mapped_result)
 
     # Owner of a given chat group

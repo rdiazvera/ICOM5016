@@ -17,7 +17,7 @@
                     <textarea class="form-control form-control-lg" rows="3" id="message" placeholder="Write message here..." ng-model="chatCtrl.newText"></textarea>
                 </div>
                 <div class="card-body text-right">
-                    <input type="submit" class="btn btn-light" value="Send Message" ng-click="chatCtrl.postMsg()">
+                    <input type="submit" class="btn btn-light" value="Send Message" ng-click="chatCtrl.postMsg(); chatCtrl.loadMessages();">
                 </div>
             </div>
         </div>
@@ -48,15 +48,15 @@
                             </div>
                         </div>
                         <div class ="card-footer">
-                            <a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.likeMsg()">
+                            <a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.likeMsg(); chatCtrl.loadMessages(); ">
                                 <span class="oi oi-thumb-up" title="thumb-up" aria-hidden="true"></span> Like
                                 <span ng-bind= "m.like"> </span>
                             </a>
-                            <a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.dislikeMsg()">
+                            <a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.dislikeMsg(); chatCtrl.loadMessages();">
                                 <span class="oi oi-thumb-down" title="thumb-down" aria-hidden="true"></span> Unlike
                                 <span ng-bind= "m.dislike"> </span>
                             </a>
-                            <a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.replyMsg()">
+                            <a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.replyMsg(); chatCtrl.loadMessages();">
                                 <span class="oi oi-share" title="share" aria-hidden="true"></span> Reply
                             </a>
                         </div>

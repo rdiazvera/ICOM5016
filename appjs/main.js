@@ -7,16 +7,16 @@
             templateUrl: 'pages/login.html',
             controller: 'LoginController',
             controllerAs : 'logingCtrl'
-        }).when('/register', {
-            templateUrl: 'pages/register.html',
-            controller: 'RegisterController',
-            controllerAs : 'registerCtrl'
+        }).when('/home', {
+            templateUrl: 'pages/home.html',
+            controller: 'HomeController',
+            controllerAs : 'homeCtrl'
         }).when('/chat', {
             templateUrl: 'pages/chat.html',
             controller: 'ChatController',
             controllerAs : 'chatCtrl'
         }).otherwise({
-            redirectTo: '/chat'
+            redirectTo: '/login'
         });
     }]);
 
