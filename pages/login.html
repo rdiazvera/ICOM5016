@@ -1,67 +1,18 @@
 <div ng-cloak class="align-content-center px-3 py-3">
 
-    <!-- Bootstrap Breadcrumb Overview -->
-    <div>
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Group Chat: "Fisica Quantica II"</li>
-          </ol>
-        </nav>
-    </div>
-
     <div class="row">
-        <div class="col s12 m12">
-            <div class="card bg-dark">
-                <div class="card-body text-white pb-0">
-                    <textarea class="form-control form-control-lg" rows="3" id="message" placeholder="Write message here..." ng-model="chatCtrl.newText"></textarea>
-                </div>
-                <div class="card-body text-right">
-                    <input type="submit" class="btn btn-light" value="Send Message" ng-click="chatCtrl.postMsg()">
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div>
-        <!-- Here come the messages in the chat, each one presented in card -->
-        <div ng-repeat="m in chatCtrl.messageList">
-            <div class="row">
-                <div class="col s12 m12">
-                    <div class="card bg-light my-3 rounded">
-                        <div class="card-header">
-                            <h5 class="font-weight-bold">{{m.Name}} <small class="text-muted"> @{{m.username}}</small></h5>
-                        </div>
-                        <div class="card-body" >
-                            <div class="card-title">
-
-                            </div>
-                            <div class="card-subtitle">
-
-                            </div>
-                            <div class="card-text">
-                                <h4>{{m.text}}</h4>
-                                <div class="text-right">
-                                    <span class="text-muted font-italic">{{m.date_created}}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class ="card-footer">
-                            <a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.likeMsg()">
-                                <span class="oi oi-thumb-up" title="thumb-up" aria-hidden="true"></span> Like
-                                <span ng-bind= "m.like"> </span>
-                            </a>
-                            <a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.dislikeMsg()">
-                                <span class="oi oi-thumb-down" title="thumb-down" aria-hidden="true"></span> Unlike
-                                <span ng-bind= "m.dislike"> </span>
-                            </a>
-                            <a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.replyMsg()">
-                                <span class="oi oi-share" title="share" aria-hidden="true"></span> Reply
-                            </a>
-                        </div>
-                    </div>
-                </div>
+        <div class="container">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="topics-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="messages-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab"></div>
+              <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab"></div>=
             </div>
         </div>
     </div>
