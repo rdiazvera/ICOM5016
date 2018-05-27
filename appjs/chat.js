@@ -4,16 +4,18 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         this.messageList = [];
         this.counter  = 2;
         this.newText = "";
-//        var gid = $scope.gid;
-//        var uid = $scope.uid;
-//        var mid = $scope.mid;
-        var gid = 1;
-        var uid = 1;
+        var groupName = $scope.gname;
+        var gid = $scope.gid;
+        var uid = $scope.user.uid;
+        var mid = $scope.mid;
+
+
 
 
         this.loadMessages = function(){
             console.log("GID IS: " + gid);
             console.log("UID IS: " + uid);
+            console.log("Gname is: " + groupName);
             var url = "http://127.0.0.1:5000/MessagingApp_DB/groupchats/" + gid + "/messages/";
 
             $http.get(url).then(
@@ -277,6 +279,12 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
 //            thisCtrl.messageList.unshift({"mid": nextId, "text" : msg, "username" : username, "Name" : Name,
 //            "like" : 0, "dislike" : 0, "date_created": "just now"});
              thisCtrl.newReplyText = "";
+        };
+
+         $scope.goToHome = function(){
+             $scope.gid = 0;
+             $location.url('/home');
+
         };
 
         this.loadMessages();

@@ -6,7 +6,7 @@
         $routeProvider.when('/login', {
             templateUrl: 'pages/login.html',
             controller: 'LoginController',
-            controllerAs : 'logingCtrl'
+            controllerAs : 'loginCtrl'
         }).when('/home', {
             templateUrl: 'pages/home.html',
             controller: 'HomeController',

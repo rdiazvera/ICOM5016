@@ -3,7 +3,7 @@ angular.module('AppChat').controller('HomeController', ['$http', '$log', '$rootS
         var thisCtrl = this;
         this.groupChatList = [];
         this.counter  = 2;
-        var uid = $scope.uid;
+        var uid = $scope.user.uid;
 
 
 
@@ -46,8 +46,11 @@ angular.module('AppChat').controller('HomeController', ['$http', '$log', '$rootS
         };
         this.loadGroupChats();
 
-        $scope.goToChat = function(gid){
+        $scope.goToChat = function(gid, gname){
             $scope.gid = gid;
+            console.log("gname from home is: " + gname);
+            $scope.gname = gname;
+
             $location.url('/chat');
 
         };

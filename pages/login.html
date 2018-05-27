@@ -4,13 +4,14 @@
             <form>
               <div class="form-group">
                 <label for="LoginUsername">Username</label>
-                <input type="text" class="form-control" id="LoginUsername" aria-describedby="emailHelp" placeholder="Enter username">
+                <input type="text" class="form-control" id="loginUsername" aria-describedby="emailHelp" placeholder="Enter username" ng-model="loginCtrl.loginUsername">
               </div>
               <div class="form-group">
                 <label for="LoginPassword">Password</label>
-                <input type="password" class="form-control" id="LoginPassword" placeholder="Password">
+                <input type="password" ng-model="loginCtrl.loginPassword" class="form-control" id="LoginPassword" placeholder="Password">
               </div>
-              <button type="submit" class="btn btn-primary">Login</button>
+              <input type="submit" class="btn btn-primary" value="Login" ng-click="loginCtrl.LogIn();">
+              <!--<button type="submit" class="btn btn-primary">Login</button>-->
               <button type="button" class="btn btn-link" ng-click="showRegister=true">Register</button>
             </form>
         </div>
@@ -20,7 +21,15 @@
             <form>
               <div class="form-group">
                 <label for="RegisterEmail">Email address</label>
-                <input type="email" class="form-control" id="RegisterEmail" aria-describedby="emailHelp" placeholder="Enter email">
+                <input type="email" ng-model="loginCtrl.registerEmail" class="form-control" id="RegisterEmail" aria-describedby="emailHelp" placeholder="Enter email">
+              </div>
+              <div class="form-group">
+                <label for="RegisterFirstName">First Name</label>
+                <input type="text" ng-model="loginCtrl.registerFirstName" class="form-control" id="RegisterFirstName" placeholder="First Name">
+              </div>
+              <div class="form-group">
+                <label for="RegisterLastName">Last Name</label>
+                <input type="text" ng-model="loginCtrl.registerLastName" class="form-control" id="RegisterLastName" placeholder="Last Name">
               </div>
               <div class="form-group">
                 <label for="RegisterPhone">Phone</label>
@@ -34,7 +43,7 @@
                 <label for="RegisterPassword">Create a Password</label>
                 <input type="password" class="form-control" id="RegisterPassword" placeholder="Password">
               </div>
-              <button type="submit" class="btn btn-primary">Register</button>
+              <button ng-click="loginCtrl.Register()" subtype="submit" class="btn btn-primary">Register</button>
             </form>
         </div>
     </div>

@@ -4,8 +4,8 @@
     <div>
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Group Chat: "Fisica Quantica II"</li>
+            <li class="breadcrumb-item"><button type="button" ng-click="chatCtrl.goToHome();" class="btn btn-link">Home</button> </li>
+            <li class="breadcrumb-item active" aria-current="page">Group Chat: {{gname}}</li>
           </ol>
         </nav>
     </div>
@@ -17,6 +17,7 @@
                     <textarea class="form-control form-control-lg" rows="3" id="message" placeholder="Write message here..." ng-model="chatCtrl.newText"></textarea>
                 </div>
                 <div class="card-body text-right">
+                    <input type="submit" class="btn btn-light" value="Refresh Messages" ng-click="chatCtrl.loadMessages();">
                     <input type="submit" class="btn btn-light" value="Send Message" ng-click="chatCtrl.postMsg(); chatCtrl.loadMessages();">
                 </div>
             </div>
