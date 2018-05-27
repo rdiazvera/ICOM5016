@@ -98,3 +98,17 @@ class GroupChatsDAO:
         for row in cursor:
             result.append(row)
         return result
+
+    def replyToMessage(self, gid, uid, replied_id, text):
+        cursor = self.conn.cursor()
+        query = "INSERT into messages(text, date_created, uid, gid) values (%s, current_timestamp, %s, %s) " \
+                "returning mid; "
+        cursor.execute(query, (text, uid, gid))
+        reply_mid = cursor.fetchone()[0]
+        query2 = "INSERT into replies(reply_mid, replied_mid) values (%s, %s) returning reply_mid, replied_mid"
+        cursor.execute(query2, (reply_mid, replied_id))
+        result = []
+        for row in cursor:
+            result.append(row)
+        self.conn.commit()
+        return result

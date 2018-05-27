@@ -81,3 +81,13 @@ class GroupChatsHandler:
             mapped_result.append(buildDict.build_messages_dict(self, r))
         return jsonify(Message=result), 201
 
+    def replyToMessage(self, gid, form):
+        uid = form['uid']
+        replied_id = form['mid']
+        text = form['text']
+        values = GroupChatsDAO().replyToMessage(gid, uid, replied_id, text)
+        mapped_result = []
+        for r in values:
+            mapped_result.append(buildDict.build_reply_dict_by_attr(self, r[0], r[1]))
+        return jsonify(Reply=mapped_result), 201
+

@@ -119,13 +119,6 @@ def loginUser():
 def registerUser():
     if request.method == 'POST':
         return UsersHandler().registerUser(request.json)
-
-# Route - Ability to post a new message
-#
-# @app.route('/MessagingApp_DB/groupchats/<int:gid>/users/<int:uid>')
-# def postMessageToGroupChat(gid, uid):
-#     return GroupChatsHandler().postMessageToGroupChat(gid, uid, request.form)
-
 # Route - Ability to join a chat group
 
 
@@ -134,18 +127,11 @@ def registerUser():
 def getGroupChatByUserId(uid):
     return UsersHandler().getGroupChatbyUserId(uid)
 
-# Route - List of messages in a given chat group
-
-# Route - List of messages with a given Hashtag on a chat group
-#
-# @app.route('/MessagingApp_DB/groupchats/<int:gid>/messages/')
-# def getMessagesByGroupChatIdWithHashtag(gid):
-#     return GroupChatsHandler().getMessagesByGroupChatIdWithHashtag(gid, request.form)
-
 # Route - The ability to post a reply to a message
-# @app.route('/MessagingApp_DB/groupchats/<int:gid>/messages/<int:mid>/reply')
-# def replyToMessageyGroupChatId(gid, mid):
-#     return MessagesHandler().replyToMessage(gid, mid, request.form);
+@app.route('/MessagingApp_DB/groupchats/<int:gid>/messages/reply', methods=['GET','POST'])
+def replyToMessageyGroupChatId(gid):
+    if request.method == 'POST':
+        return GroupChatsHandler().replyToMessage(gid, request.json)
 
 if __name__ == '__main__':
     app.run()

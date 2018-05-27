@@ -130,3 +130,9 @@ def build_reaction_count_dict(self, r):
     result['count'] = r
     return result
 
+def build_reply_dict_by_attr(self, reply_id, replied_mid):
+    result = {}
+    result['reply_mid']=reply_id
+    result['replied_mid']=replied_mid
+
+

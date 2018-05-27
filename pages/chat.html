@@ -63,9 +63,17 @@
                                 <span class="oi" title="thumb-down" aria-hidden="true"></span>
                                 <p>Users who disliked</p>
                             </a>
-                            <a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.replyMsg(); chatCtrl.loadMessages();">
+                            <a class="btn btn-dark text-white" role="button" ng-click="myReply=true">
                                 <span class="oi oi-share" title="share" aria-hidden="true"></span> Reply
                             </a>
+                            <div class="card bg-dark" ng-show="myReply">
+                                <div class="card-body text-white pb-0">
+                                    <textarea class="form-control form-control-lg" rows="3" id="reply_message" placeholder="Reply to message..." ng-model="chatCtrl.newReplyText"></textarea>
+                                </div>
+                                <div class="card-body text-right">
+                                    <input type="submit" class="btn btn-light" value="Send Message" ng-click="chatCtrl.postReplyMsg(m.text, m.mid); chatCtrl.loadMessages();">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
