@@ -38,7 +38,6 @@
 
                             </div>
                             <div class="card-subtitle">
-
                             </div>
                             <div class="card-text">
                                 <h4>{{m.text}}</h4>
@@ -48,13 +47,21 @@
                             </div>
                         </div>
                         <div class ="card-footer">
-                            <a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.likeMsg(); chatCtrl.loadMessages(); ">
+                            <a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.likeMsg(m.mid); chatCtrl.loadMessages(); ">
                                 <span class="oi oi-thumb-up" title="thumb-up" aria-hidden="true"></span> Like
                                 <span ng-bind= "m.like"> </span>
+                            </a>
+                            <a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.userLike(m.mid); ">
+                                <span class="oi" title="thumb-down" aria-hidden="true"></span>
+                                <p>Users who liked</p>
                             </a>
                             <a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.dislikeMsg(); chatCtrl.loadMessages();">
                                 <span class="oi oi-thumb-down" title="thumb-down" aria-hidden="true"></span> Unlike
                                 <span ng-bind= "m.dislike"> </span>
+                            </a>
+                            <a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.userDislike(m.mid); ">
+                                <span class="oi" title="thumb-down" aria-hidden="true"></span>
+                                <p>Users who disliked</p>
                             </a>
                             <a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.replyMsg(); chatCtrl.loadMessages();">
                                 <span class="oi oi-share" title="share" aria-hidden="true"></span> Reply
