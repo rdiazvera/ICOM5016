@@ -70,8 +70,10 @@ class GroupChatsHandler:
 
     def addUsersToGroupChat(self, gid, form):
         uid = form['uid']
-        GroupChatsDAO().addUsersToGroupChat(gid, uid)
-        result = buildDict.build_members_dict_by_attr(self, uid, gid)
+        mid = GroupChatsDAO().addUsersToGroupChat(gid, uid)
+        print(mid)
+        print(gid)
+        result = buildDict.build_members_dict_by_attr(self, mid, gid)
         return jsonify(Member=result), 201
 
     def getMessagesByHashTagInGroup(self, gid, hstring):
@@ -90,4 +92,11 @@ class GroupChatsHandler:
         for r in values:
             mapped_result.append(buildDict.build_reply_dict_by_attr(self, r[0], r[1]))
         return jsonify(Reply=mapped_result), 201
+
+    def availableGroupChats(self, uid):
+        values = GroupChatsDAO().availableGroupChats(uid)
+        mapped_result = []
+        for r in values:
+            mapped_result.append(buildDict.build_groupchats_dict(self, r))
+        return jsonify(GroupChats=mapped_result), 201
 

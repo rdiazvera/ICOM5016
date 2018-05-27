@@ -15,7 +15,11 @@
             templateUrl: 'pages/chat.html',
             controller: 'ChatController',
             controllerAs : 'chatCtrl'
-        }).otherwise({
+        }).when('/groups', {
+            templateUrl: 'pages/groups.html',
+            controller: 'HomeController',
+            controllerAs : 'homeCtrl'
+            }).otherwise({
             redirectTo: '/login'
         });
     }]);
