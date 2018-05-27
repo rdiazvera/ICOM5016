@@ -1,19 +1,41 @@
 <div ng-cloak class="align-content-center px-3 py-3">
-
-    <div class="row">
-        <div class="container">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link active" id="topics-tab" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true">Login</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" id="messages-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
-              </li>
-            </ul>
-            <div class="tab-content" id="myTabContent">
-              <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab"></div>
-              <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab"></div>=
-            </div>
+    <div class = "row">
+        <div class ="col-md-4 col-md-offset-4 mx-auto">
+            <form>
+              <div class="form-group">
+                <label for="LoginUsername">Username</label>
+                <input type="text" class="form-control" id="LoginUsername" aria-describedby="emailHelp" placeholder="Enter username">
+              </div>
+              <div class="form-group">
+                <label for="LoginPassword">Password</label>
+                <input type="password" class="form-control" id="LoginPassword" placeholder="Password">
+              </div>
+              <button type="submit" class="btn btn-primary">Login</button>
+              <button type="button" class="btn btn-link" ng-click="showRegister=true">Register</button>
+            </form>
+        </div>
+    </div>
+    <div class = "row" ng-show="showRegister">
+        <div class ="col-md-4 col-md-offset-4 mx-auto">
+            <form>
+              <div class="form-group">
+                <label for="RegisterEmail">Email address</label>
+                <input type="email" class="form-control" id="RegisterEmail" aria-describedby="emailHelp" placeholder="Enter email">
+              </div>
+              <div class="form-group">
+                <label for="RegisterPhone">Phone</label>
+                <input type="text" class="form-control" id="RegisterPhone" placeholder="Phone">
+              </div>
+              <div class="form-group">
+                <label for="RegisterUsername">Username</label>
+                <input type="text" class="form-control" id="RegisterUsername" placeholder="Username">
+              </div>
+              <div class="form-group">
+                <label for="RegisterPassword">Create a Password</label>
+                <input type="password" class="form-control" id="RegisterPassword" placeholder="Password">
+              </div>
+              <button type="submit" class="btn btn-primary">Register</button>
+            </form>
         </div>
     </div>
 </div>
