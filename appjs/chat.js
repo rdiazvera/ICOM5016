@@ -49,11 +49,6 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
 
         this.postMsg = function(){
             var msg = thisCtrl.newText;
-            // Need to figure out who I am
-
-//            var username = "EL_FELI_1924 ";
-//            var Name = "Felipe Santiago"
-//            var nextId = thisCtrl.counter++;
 
             var url = "http://127.0.0.1:5000/MessagingApp_DB/groupchats/" + gid + "/messages/";
             var data = JSON.stringify({uid: uid, text: msg});
@@ -64,6 +59,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
                     console.log(data);
                     console.log("response: " + JSON.stringify(response));
                     thisCtrl.messageList = response.data.Messages;
+                    this.loadMessages();
                 },
                 function(response){
                     console.log("3");
@@ -93,13 +89,14 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
 
         this.likeMsg = function(mid){
             var url = "http://127.0.0.1:5000/MessagingApp_DB/messages/" + mid + "/likes/count/";
-            var data = JSON.stringify({uid: uid, mid: mid, type: "like" });
+            console.log("gid is: " + $scope.gid);
+            var data = JSON.stringify({uid: uid, mid: mid, type: "like", gid: $scope.gid});
             $http.post(url, data).then(
 
                 function(response){
                     console.log(data);
                     console.log("response: " + JSON.stringify(response));
-                    this.loadMessages();
+                    thisCtrl.messageList = response.data.Messages;
                 },
                 function(response){
                     console.log("3");
@@ -128,13 +125,13 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
 
             var url = "http://127.0.0.1:5000/MessagingApp_DB/messages/" + mid + "/dislikes/count/";
             //"http://127.0.0.1:5000/MessagingApp_DB/messages/"+"<int:+" data[1] + ">/dislikes/count/";
-            var data = JSON.stringify({uid: uid, mid: mid, type: "dislike" })
+            var data = JSON.stringify({uid: uid, mid: mid, type: "dislike", gid: $scope.gid})
             $http.post(url, data).then(
 
                 function(response){
                     console.log(data);
                     console.log("response: " + JSON.stringify(response));
-                    this.loadMessages();
+                    thisCtrl.messageList = response.data.Messages;
                 },
                 function(response){
                     console.log("3");
@@ -258,6 +255,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
                 function(response){
                     console.log(data);
                     console.log("response: " + JSON.stringify(response));
+                    thisCtrl.messageList = thisCtrl.messageList = response.data.Messages;
                 },
                 function(response){
                     console.log("3");

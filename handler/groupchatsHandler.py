@@ -68,7 +68,7 @@ class GroupChatsHandler:
                 for word in lista:
                     if word[:1] == '#':
                         dao.insertHash(values[0][0], word.replace('#', ''))
-                return jsonify(Message=result), 201
+                return self.getMessagesByGroupChatId(gid)
             else:
                 return jsonify(Error="Unexpected attributes in this post request"), 400
 
@@ -97,7 +97,7 @@ class GroupChatsHandler:
         mapped_result = []
         for r in values:
             mapped_result.append(buildDict.build_reply_dict_by_attr(self, r[0], r[1]))
-        return jsonify(Reply=mapped_result), 201
+        return self.getMessagesByGroupChatId(gid)
 
     def availableGroupChats(self, uid):
         values = GroupChatsDAO().availableGroupChats(uid)

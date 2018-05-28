@@ -1,6 +1,8 @@
 from flask import jsonify, request
 from dao.messagesDAO import MessagesDAO
 from handler import buildDict
+from handler.groupchatsHandler import GroupChatsHandler
+
 
 
 # Handler Class to handle the Messages, Replies, Reactions and Hashtags entities
@@ -79,12 +81,14 @@ class MessagesHandler:
     # === PHASE 3 === #
 
     def addReactions(self, form):
+        print(form)
         uid = form['uid']
         mid = form['mid']
+        gid = form['gid']
         type = form['type']
         MessagesDAO().addReactions(uid, mid, type)
         result = buildDict.build_reaction_dict_by_attr(self, uid, mid, type)
-        return jsonify(Reaction=result), 201
+        return GroupChatsHandler().getMessagesByGroupChatId(gid)
 
 
 
