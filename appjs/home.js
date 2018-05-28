@@ -56,10 +56,44 @@ angular.module('AppChat').controller('HomeController', ['$http', '$log', '$rootS
          $location.url('/groups');
          };
 
-        $scope.createGroupChat = function(uid){
-            console.log("New Group Chat Name: " + newGroupName);
-            console.log("Owner ID: " + uid);
-            //TODO
+         $scope.createGroupChat = function(uid){
+            console.log("New Group Chat Name: " + thisCtrl.newGroupName);
+            console.log("Owner ID: " + $scope.user.uid);
+            var url = "http://127.0.0.1:5000/MessagingApp_DB/GroupChats/" + $scope.user.uid + "/available/";
+            var data = {gname: thisCtrl.newGroupName};
+
+            $http.post(url, data).then(
+                function(response){
+                    console.log("response: " + JSON.stringify(response));
+                    console.log(response.data);
+                    alert("Group Chat Created Successfully!");
+                    thisCtrl.groupChatList = response.data.GroupChats;
+                    this.loadGroupChats();
+
+                },
+                function(response){
+                    var status = response.status;
+                    if (status == 0){
+                        alert("No internet connection.");
+                    }
+                    else if (status == 401){
+                        alert("Session Expired.");
+                    }
+                    else if (status == 403){
+                        alert("Not authorized.");
+                    }
+                    else if (status == 404){
+                        alert("Not Found.");
+                    }
+                    else {
+                        alert("Internal system error.");
+                    }
+                });
+
+                $log.error("Message Loaded: ", JSON.stringify(thisCtrl.groupChatList));
+
+         this.loadGroupChats();
+
         };
 
 

@@ -102,9 +102,13 @@ def getUserInformationByUsername(username):
 # -- Phase III Routes -- #
 
 
-@app.route('/MessagingApp_DB/GroupChats/<int:uid>/available/')
+@app.route('/MessagingApp_DB/GroupChats/<int:uid>/available/', methods=['GET', 'POST'])
 def availableGroupChats(uid):
+    if request.method == 'GET':
         return GroupChatsHandler().availableGroupChats(uid)
+    else:
+        print("main")
+        return GroupChatsHandler().createGroupChat(uid, request.json)
 
 @app.route('/MessagingApp_DB/users/login/', methods=['GET', 'POST'])
 def loginUser():

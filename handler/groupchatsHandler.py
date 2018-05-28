@@ -106,3 +106,16 @@ class GroupChatsHandler:
             mapped_result.append(buildDict.build_groupchats_dict(self, r))
         return jsonify(GroupChats=mapped_result), 201
 
+    def createGroupChat(self, uid, form):
+        gname = form['gname']
+        result = GroupChatsDAO().createGroupChat(uid, gname)
+        if result is None:
+            return jsonify(Error="NOT FOUND"), 404
+        else:
+            mapped_result = []
+            for r in result:
+                mapped_result.append(buildDict.build_groupchats_dict(self, r))
+            return jsonify(GroupChats=mapped_result)
+
+
+

@@ -63,6 +63,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
                 function(response){
                     console.log(data);
                     console.log("response: " + JSON.stringify(response));
+                    thisCtrl.messageList = response.data.Messages;
                 },
                 function(response){
                     console.log("3");

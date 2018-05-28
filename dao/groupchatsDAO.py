@@ -94,8 +94,6 @@ class GroupChatsDAO:
     def addUsersToGroupChat(self, gid, uid):
         cursor = self.conn.cursor()
         query = "INSERT into members(gid, uid) values (%s, %s) returning gid;"
-        print(gid)
-        print(uid)
         cursor.execute(query, (gid, uid,))
         group_id = cursor.fetchone()[0]
         self.conn.commit()
@@ -131,5 +129,21 @@ class GroupChatsDAO:
         cursor.execute(query, (hash, mid))
         result = cursor.fetchone()[0]
         self.conn.commit()
+        return result
+
+    def createGroupChat(self, uid, gname):
+        cursor = self.conn.cursor()
+        query = "INSERT into groupchats(uid, gname) values (%s, %s) returning gid;"
+        cursor.execute(query, (uid, gname))
+        result = cursor.fetchone()[0]
+        self.conn.commit()
+        query2 = " INSERT into members(uid, gid) values (%s, %s);"
+        cursor.execute(query2, (uid, result))
+        self.conn.commit()
+        query3 = "select * from groupchats where gid in (select gid from members where uid = %s)"
+        result = []
+        cursor.execute(query3, (uid,))
+        for row in cursor:
+            result.append(row)
         return result
 
