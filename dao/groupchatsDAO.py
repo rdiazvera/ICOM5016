@@ -83,7 +83,7 @@ class GroupChatsDAO:
     def postMessage(self, gid, text, uid):
         cursor = self.conn.cursor()
         query = "INSERT into messages(text, date_created, uid, gid) values (%s, current_timestamp, %s, %s) " \
-                "returning mid, date_created;"
+                "returning mid"
         cursor.execute(query, (text, uid, gid,))
         mid = []
         for row in cursor:
@@ -124,3 +124,12 @@ class GroupChatsDAO:
             result.append(row)
         self.conn.commit()
         return result
+
+    def insertHash(self, mid, hash):
+        cursor = self.conn.cursor()
+        query = "INSERT into hashtags(hstring, mid) values (%s, %s) returning hid"
+        cursor.execute(query, (hash, mid))
+        result = cursor.fetchone()[0]
+        self.conn.commit()
+        return result
+
