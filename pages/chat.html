@@ -1,21 +1,25 @@
 <div ng-cloak class="align-content-center px-3 py-3">
 
-    <!-- Bootstrap Breadcrumb Overview -->
     <div>
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><button type="button" ng-click="chatCtrl.goToHome();" class="btn btn-link">Home</button> </li>
-            <li class="breadcrumb-item active" aria-current="page">Group Chat: {{gname}}</li>
-          </ol>
+        <nav class="navbar navbar-light bg-light justify-content-between">
+            <div>
+              <a class="navbar-brand btn btn-dark text-white" role="button" ng-click="goToHome();">
+                  <span class="oi oi-home" title="home" aria-hidden="true"></span> Home</a>
+                <a class="navbar-brand btn btn-dark text-white" role="button" ng-click="chatCtrl.loadMessages();">
+                    <span class="oi oi-reload" title="reload" aria-hidden="true"></span> </a>
+            </div>
+          <form class="form-inline">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">#</span>
+              </div>
+              <input type="text" class="form-control" placeholder="Search Topics" aria-label="Search" aria-describedby="basic-addon1" ng-model="chatCtrl.search">
+            </div>
+          </form>
         </nav>
     </div>
-
-    <div>
-        <nav class="navbar navbar-light bg-light">
-            <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" ng-model="chatCtrl.search">
-            </form>
-        </nav>
+    <div class="page-header">
+        <h1 class="font-weight-bold text-center mt-3 mb-3">Group Chat: {{ gname }}</h1>
     </div>
 
     <div class="row">
@@ -25,7 +29,6 @@
                     <textarea class="form-control form-control-lg" rows="3" id="message" placeholder="Write message here..." ng-model="chatCtrl.newText"></textarea>
                 </div>
                 <div class="card-body text-right">
-                    <input type="submit" class="btn btn-light" value="Refresh Messages" ng-click="chatCtrl.loadMessages();">
                     <input type="submit" class="btn btn-light" value="Send Message" ng-click="chatCtrl.postMsg(); chatCtrl.loadMessages();">
                 </div>
             </div>
@@ -43,11 +46,6 @@
                             <h5 class="font-weight-bold">{{m.Name}} <small class="text-muted"> @{{m.username}}</small></h5>
                         </div>
                         <div class="card-body" >
-                            <div class="card-title">
-
-                            </div>
-                            <div class="card-subtitle">
-                            </div>
                             <div class="card-text">
                                 <h4>{{m.text}}</h4>
                                 <div class="text-right">
@@ -56,37 +54,39 @@
                             </div>
                         </div>
                         <div class ="card-footer">
-                            <!-- Like a Message -->
-                            <a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.likeMsg(m.mid); chatCtrl.loadMessages(); ">
-                                <span class="oi oi-thumb-up" title="thumb-up" aria-hidden="true"></span> Like
-                            </a>
-                            <!-- Dislike a Message -->
-                            <a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.dislikeMsg(m.mid); chatCtrl.loadMessages();">
-                                <span class="oi oi-thumb-down" title="thumb-down" aria-hidden="true"></span> Unlike
-                            </a>
-                            <!-- Reply to a Message -->
-                            <a class="btn btn-dark text-white" role="button" ng-click="myReply=true">
-                                <span class="oi oi-share" title="share" aria-hidden="true"></span> Reply
-                            </a>
 
-                            <!-- Likes Info -->
-                            <a class="btn btn-link text-muted" role="button" ng-click="chatCtrl.userLike(m.mid); ">
-                                <p>Likes {{m.like}}</p>
-                            </a>
-                            <!-- Dislike Info -->
-                            <a class="btn btn-link text-muted" role="button" ng-click="chatCtrl.userDislike(m.mid); ">
-                                <p>Dislikes {{m.dislike}}</p>
-                            </a>
+                             <div class="row align-items-center">
+                              <div class="col">
+                                <!-- Likes Info -->
+                                <a class="btn btn-link text-muted" role="button" ng-click="chatCtrl.userLike(m.mid); ">
+                                    Likes {{m.like}}
+                                </a>
+                                <!-- Dislike Info -->
+                                <a class="btn btn-link text-muted" role="button" ng-click="chatCtrl.userDislike(m.mid); ">
+                                    Dislikes {{m.dislike}}
+                                </a>
+                              </div>
+                              <div class="col text-right">
+                                <!-- Like a Message -->
+                                <a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.likeMsg(m.mid); chatCtrl.loadMessages(); ">
+                                    <span class="oi oi-thumb-up" title="thumb-up" aria-hidden="true"></span> Like
+                                </a>
+                                <!-- Dislike a Message -->
+                                <a class="btn btn-dark text-white" role="button" ng-click="chatCtrl.dislikeMsg(m.mid); chatCtrl.loadMessages();">
+                                    <span class="oi oi-thumb-down" title="thumb-down" aria-hidden="true"></span> Unlike
+                                </a>
+                                <!-- Reply to a Message -->
+                                <a class="btn btn-dark text-white" role="button" ng-click="myReply=true">
+                                    <span class="oi oi-share" title="share" aria-hidden="true"></span> Reply
+                                </a>
+                              </div>
+                            </div>
 
-{#                            <!-- test -->#}
-{#                            <a class="btn btn-link text-muted" role="button" data-container="body" data-toggle="popover" data-content="Blah Blah Blah" data-placement="top" title="Likes Info">#}
-{#                                <p>Test <span ng-bind= "m.like"> </span></p>#}
-{#                            </a>#}
-
-
-                            <div class="card bg-dark" ng-show="myReply">
+                            <!-- Reply Box -->
+                            <div class="card bg-dark mt-3" ng-show="myReply">
                                 <div class="card-body text-white pb-0">
-                                    <textarea class="form-control form-control-lg" rows="3" id="reply_message" placeholder="Reply to message..." ng-model="chatCtrl.newReplyText"></textarea>
+                                    <h5>Reply Message</h5>
+                                    <textarea class="form-control form-control-lg mt-3" rows="3" id="reply_message" placeholder="Reply to message..." ng-model="chatCtrl.newReplyText"></textarea>
                                 </div>
                                 <div class="card-body text-right">
                                     <input type="submit" class="btn btn-light" value="Send Message" ng-click="chatCtrl.postReplyMsg(m.text, m.mid); chatCtrl.loadMessages();">

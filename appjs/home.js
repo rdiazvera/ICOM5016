@@ -5,6 +5,7 @@ angular.module('AppChat').controller('HomeController', ['$http', '$log', '$rootS
         this.availableGroupChatList = [];
         this.counter  = 2;
         var uid = $scope.user.uid;
+        this.newGroupName = "";
 
         this.loadGroupChats = function(){
             //console.log($rootScope.uid)
@@ -54,6 +55,12 @@ angular.module('AppChat').controller('HomeController', ['$http', '$log', '$rootS
         $scope.goToAvailableGroupChats = function(){
          $location.url('/groups');
          };
+
+        $scope.createGroupChat = function(uid){
+            console.log("New Group Chat Name: " + newGroupName);
+            console.log("Owner ID: " + uid);
+            //TODO
+        };
 
 
          this.loadAvailableGroupChats = function(){
@@ -121,6 +128,10 @@ angular.module('AppChat').controller('HomeController', ['$http', '$log', '$rootS
                 $log.error("Message Loaded: ", JSON.stringify(thisCtrl.groupChatList));
         };
 
+        $scope.goToHome = function(){
+             console.log("hola")
+             $location.url('/home');
 
+        };
 
    }]);

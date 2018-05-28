@@ -1,7 +1,13 @@
 <div ng-cloak class="align-content-center px-3 py-3">
+
     <div class = "row">
-        <div class ="col-md-4 col-md-offset-4 mx-auto">
-            <form>
+        <div class ="col-md-4 col-md-offset-4 mx-auto bg-dark text-white">
+
+            <div class="page-header">
+                <h1 class="font-weight-bold text-center mt-3 mb-3 text-white">Login</h1>
+            </div>
+
+            <form class="mb-4">
               <div class="form-group">
                 <label for="LoginUsername">Username</label>
                 <input type="text" class="form-control" id="loginUsername" aria-describedby="emailHelp" placeholder="Enter username" ng-model="loginCtrl.loginUsername">
@@ -10,14 +16,18 @@
                 <label for="LoginPassword">Password</label>
                 <input type="password" ng-model="loginCtrl.loginPassword" class="form-control" id="LoginPassword" placeholder="Password">
               </div>
-              <input type="submit" class="btn btn-primary" value="Login" ng-click="loginCtrl.LogIn();">
-              <!--<button type="submit" class="btn btn-primary">Login</button>-->
-              <button type="button" class="btn btn-link" ng-click="showRegister=true">Register</button>
+              <div class="mt-3 text-right">
+                  <button type="button" class="btn btn-link text-white" ng-click="showRegister=true">Don't have an account? Register Here</button>
+                  <input type="submit" class="btn btn-light" value="Login" ng-click="loginCtrl.LogIn();">
+              </div>
             </form>
         </div>
     </div>
     <div class = "row" ng-show="showRegister">
         <div class ="col-md-4 col-md-offset-4 mx-auto">
+            <div class="page-header">
+                <h1 class="font-weight-bold text-center mt-5 mb-3">Register</h1>
+            </div>
             <form>
               <div class="form-group">
                 <label for="RegisterEmail">Email address</label>
@@ -43,7 +53,9 @@
                 <label for="RegisterPassword">Create a Password</label>
                 <input type="password" ng-model="loginCtrl.registerPassword" class="form-control" id="RegisterPassword" placeholder="Password">
               </div>
-              <button ng-click="loginCtrl.Register()" subtype="submit" class="btn btn-primary">Register</button>
+              <div class="text-right">
+                <button ng-click="loginCtrl.Register()" type="submit" class="btn btn-dark">Register</button>
+              </div>
             </form>
         </div>
     </div>

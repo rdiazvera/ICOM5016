@@ -1,5 +1,5 @@
-angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope', '$rootScope',
-    function($http, $log, $scope, $rootScope) {
+angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope', '$rootScope', '$location',
+    function($http, $log, $scope, $rootScope, $location) {
         var thisCtrl = this;
         this.messageList = [];
         this.counter  = 2;

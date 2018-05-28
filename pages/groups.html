@@ -1,19 +1,31 @@
-    <div ng-cloak class="align-content-center px-3 py-3">
-        <h2> {{user.username}}'s Available Group Chats to join </h2>
-            <div ng-repeat="g in homeCtrl.availableGroupChatList">
-            <div class="row">
-                <div class="col s12 m12">
-                    <div class="card bg-light my-3 rounded">
-                        <div class="card-body" >
-                            <div class="card-subtitle"> Group Chat Name:
-                            {{g.gname}}
-                            </div>
-                            <a class="btn btn-dark text-white" role="button" ng-click= "joinChat(g.gid);"> Join This Chat
-                            </a>
-                        </div>
-                    </div>
-                </div>
+<div ng-cloak class="align-content-center px-3 py-3">
+
+    <div>
+        <nav class="navbar navbar-light bg-light justify-content-between">
+          <div>
+              <a class="navbar-brand btn btn-dark text-white" role="button" ng-click="goToHome();">
+                  <span class="oi oi-home" title="home" aria-hidden="true"></span> Home</a>
+              <a class="navbar-brand">Join a Group Chat</a>
+          </div>
+        </nav>
+    </div>
+
+    <div class="page-header">
+        <h1 class="font-weight-bold text-center mt-3 mb-3">Available Groups for {{ user.first_name }} {{ user.last_name }}</h1>
+    </div>
+
+    <div>
+        <div class="list-group" ng-repeat="g in homeCtrl.availableGroupChatList">
+          <a class="list-group-item list-group-item-action flex-column align-items-start" ng-click="showButton=true">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="font-weight-bold mb-1">Group Chat: {{ g.gname }}</h5>
+              <small>Group ID: {{ g.gid }}</small>
             </div>
+            <p class="mb-1">Owner ID: {{ g.uid }}</p>
+                <a class="btn btn-dark text-white" role="button" ng-show="showButton" ng-click= "joinChat(g.gid);">
+                  <span class="oi oi-plus" title="plus" aria-hidden="true"></span>Join Chat </a>
+          </a>
+
         </div>
     </div>
-    </div>
+</div>

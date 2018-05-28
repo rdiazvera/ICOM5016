@@ -38,6 +38,13 @@ angular.module('AppChat').controller('GroupController', ['$http', '$log', '$root
 
                 $log.error("Message Loaded: ", JSON.stringify(thisCtrl.groupChatList));
         };
+
+         $scope.goToHome = function(){
+             console.log("hola")
+             $location.url('/home');
+
+        };
+
         this.loadGroupChats();
 
 
