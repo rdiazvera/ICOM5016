@@ -91,13 +91,14 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         };
 
         this.likeMsg = function(mid){
-            var url = "http://127.0.0.1:5000/MessagingApp_DB/messages/2/likes/count/";
-            var data = JSON.stringify({uid: 3, mid: 21, type: "like" });
+            var url = "http://127.0.0.1:5000/MessagingApp_DB/messages/" + mid + "/likes/count/";
+            var data = JSON.stringify({uid: uid, mid: mid, type: "like" });
             $http.post(url, data).then(
 
                 function(response){
                     console.log(data);
                     console.log("response: " + JSON.stringify(response));
+                    this.loadMessages();
                 },
                 function(response){
                     console.log("3");
@@ -116,22 +117,23 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
                         alert("Not Found.");
                     }
                     else {
-                        alert("Internal system error.");
+                        alert("You Already Reacted.");
                     }
                 });
                 //$log.error("Message Loaded: ", JSON.stringify(thisCtrl.messageList));
         };
 
-        this.dislikeMsg = function(){
+        this.dislikeMsg = function(mid){
 
-            var url = "http://127.0.0.1:5000/MessagingApp_DB/messages/26/dislikes/count/";
+            var url = "http://127.0.0.1:5000/MessagingApp_DB/messages/" + mid + "/dislikes/count/";
             //"http://127.0.0.1:5000/MessagingApp_DB/messages/"+"<int:+" data[1] + ">/dislikes/count/";
-            var data = JSON.stringify({uid: 3, mid: 25, type: "dislike" })
+            var data = JSON.stringify({uid: uid, mid: mid, type: "dislike" })
             $http.post(url, data).then(
 
                 function(response){
                     console.log(data);
                     console.log("response: " + JSON.stringify(response));
+                    this.loadMessages();
                 },
                 function(response){
                     console.log("3");
@@ -150,7 +152,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
                         alert("Not Found.");
                     }
                     else {
-                        alert("Internal system error.");
+                        alert("You Already Reacted.");
                     }
 
                 });

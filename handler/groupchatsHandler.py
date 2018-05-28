@@ -60,19 +60,16 @@ class GroupChatsHandler:
             text = form['text']
             uid = form['uid']
             if text:
-
-
                 dao = GroupChatsDAO()
                 values = dao.postMessage(gid, text, uid)
-                print(values[0][0])
                 result = buildDict.build_msg_dict_by_att(self, values[0][0], text, datetime.datetime.now(), uid, gid)
 
                 lista = str(text).split()
                 for word in lista:
                     if word[:1] == '#':
                         dao.insertHash(values[0][0], word.replace('#', ''))
-
-
+                result = buildDict.build_msg_dict_by_att(self, values[0][0], text, datetime.datetime.now(), uid, gid)
+                print(result)
                 return jsonify(Message=result), 201
             else:
                 return jsonify(Error="Unexpected attributes in this post request"), 400
