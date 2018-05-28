@@ -67,9 +67,9 @@ class GroupChatsHandler:
                 print(values[0][0])
                 result = buildDict.build_msg_dict_by_att(self, values[0][0], text, datetime.datetime.now(), uid, gid)
 
-                listOfStrings = str(text).split()
-                for word in listOfStrings:
-                    if word.find('#') != -1:
+                lista = str(text).split()
+                for word in lista:
+                    if word[:1] == '#':
                         dao.insertHash(values[0][0], word.replace('#', ''))
 
 
