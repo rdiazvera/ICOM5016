@@ -68,8 +68,6 @@ class GroupChatsHandler:
                 for word in lista:
                     if word[:1] == '#':
                         dao.insertHash(values[0][0], word.replace('#', ''))
-                result = buildDict.build_msg_dict_by_att(self, values[0][0], text, datetime.datetime.now(), uid, gid)
-                print(result)
                 return jsonify(Message=result), 201
             else:
                 return jsonify(Error="Unexpected attributes in this post request"), 400
@@ -92,6 +90,10 @@ class GroupChatsHandler:
         replied_id = form['mid']
         text = form['text']
         values = GroupChatsDAO().replyToMessage(gid, uid, replied_id, text)
+        lista = str(text).split()
+        for word in lista:
+            if word[:1] == '#':
+                GroupChatsDAO().insertHash(values[0][0], word.replace('#', ''))
         mapped_result = []
         for r in values:
             mapped_result.append(buildDict.build_reply_dict_by_attr(self, r[0], r[1]))
