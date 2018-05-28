@@ -1,5 +1,5 @@
-<div ng-cloak class="align-content-center px-3 py-3"></div>
-
+<div ng-cloak class="align-content-center px-3 py-3">
+        <h2>{{user.username}}'s Group Chats</h2>
         <div ng-repeat="g in homeCtrl.groupChatList">
             <div class="row">
                 <div class="col s12 m12">
@@ -8,7 +8,7 @@
                             <div class="card-title"> Owner ID:
                             {{g.uid}}
                             </div>
-                            <div class="card-subtitle"> Group Chat Name: 
+                            <div class="card-subtitle"> Group Chat Name:
                             {{g.gname}}
                             </div>
                             <a class="btn btn-dark text-white" role="button" ng-click= "goToChat(g.gid, g.gname);"> View This Chat
@@ -18,3 +18,5 @@
                 </div>
             </div>
         </div>
+    <a class="btn btn-dark text-white" role="button" ng-click= "goToAvailableGroupChats();"> Join Chat Groups</a>
+</div>

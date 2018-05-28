@@ -22,6 +22,16 @@ class GroupChatsDAO:
             result.append(row)
         return result
 
+    def availableGroupChats(self, uid):
+        cursor = self.conn.cursor()
+        query = "select gid, gname, uid from groupchats where gid not in "\
+                "(select gid from members as m where m.uid = %s)"
+        cursor.execute(query, (uid,))
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
 
     def getGroupChatById(self, gid):
         cursor = self.conn.cursor()
@@ -73,7 +83,7 @@ class GroupChatsDAO:
     def postMessage(self, gid, text, uid):
         cursor = self.conn.cursor()
         query = "INSERT into messages(text, date_created, uid, gid) values (%s, current_timestamp, %s, %s) " \
-                "returning mid, date_created;"
+                "returning mid"
         cursor.execute(query, (text, uid, gid,))
         mid = []
         for row in cursor:
@@ -84,10 +94,12 @@ class GroupChatsDAO:
     def addUsersToGroupChat(self, gid, uid):
         cursor = self.conn.cursor()
         query = "INSERT into members(gid, uid) values (%s, %s) returning gid;"
-        cursor.execute(query, (gid, uid))
-        gid = cursor.fetchone()[0]
+        print(gid)
+        print(uid)
+        cursor.execute(query, (gid, uid,))
+        group_id = cursor.fetchone()[0]
         self.conn.commit()
-        return gid
+        return group_id
 
     def getMessagesByHashTagInGroup(self, gid, hstring):
         cursor = self.conn.cursor()
@@ -112,3 +124,12 @@ class GroupChatsDAO:
             result.append(row)
         self.conn.commit()
         return result
+
+    def insertHash(self, mid, hash):
+        cursor = self.conn.cursor()
+        query = "INSERT into hashtags(hstring, mid) values (%s, %s) returning hid"
+        cursor.execute(query, (hash, mid))
+        result = cursor.fetchone()[0]
+        self.conn.commit()
+        return result
+

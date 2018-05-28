@@ -60,18 +60,27 @@ class GroupChatsHandler:
             text = form['text']
             uid = form['uid']
             if text:
+
+
                 dao = GroupChatsDAO()
                 values = dao.postMessage(gid, text, uid)
-                #print(values.__sizeof__())
-                result = buildDict.build_msg_dict_by_att(self, values[0], text, datetime.datetime.now(), uid, gid)
+                print(values[0][0])
+                result = buildDict.build_msg_dict_by_att(self, values[0][0], text, datetime.datetime.now(), uid, gid)
+
+                listOfStrings = str(text).split()
+                for word in listOfStrings:
+                    if word.find('#') != -1:
+                        dao.insertHash(values[0][0], word.replace('#', ''))
+
+
                 return jsonify(Message=result), 201
             else:
                 return jsonify(Error="Unexpected attributes in this post request"), 400
 
     def addUsersToGroupChat(self, gid, form):
         uid = form['uid']
-        GroupChatsDAO().addUsersToGroupChat(gid, uid)
-        result = buildDict.build_members_dict_by_attr(self, uid, gid)
+        mid = GroupChatsDAO().addUsersToGroupChat(gid, uid)
+        result = buildDict.build_members_dict_by_attr(self, mid, gid)
         return jsonify(Member=result), 201
 
     def getMessagesByHashTagInGroup(self, gid, hstring):
@@ -90,4 +99,11 @@ class GroupChatsHandler:
         for r in values:
             mapped_result.append(buildDict.build_reply_dict_by_attr(self, r[0], r[1]))
         return jsonify(Reply=mapped_result), 201
+
+    def availableGroupChats(self, uid):
+        values = GroupChatsDAO().availableGroupChats(uid)
+        mapped_result = []
+        for r in values:
+            mapped_result.append(buildDict.build_groupchats_dict(self, r))
+        return jsonify(GroupChats=mapped_result), 201
 

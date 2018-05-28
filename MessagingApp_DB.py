@@ -102,11 +102,9 @@ def getUserInformationByUsername(username):
 # -- Phase III Routes -- #
 
 
-# Route - Ability to login a user
-
-# @app.route('/MessagingApp_DB/users/<string:username>/login/<string:password>')
-# def loginUser(username, password):
-#     return UsersHandler().loginUser(username, password)
+@app.route('/MessagingApp_DB/GroupChats/<int:uid>/available/')
+def availableGroupChats(uid):
+        return GroupChatsHandler().availableGroupChats(uid)
 
 @app.route('/MessagingApp_DB/users/login/', methods=['GET', 'POST'])
 def loginUser():
@@ -129,7 +127,7 @@ def getGroupChatByUserId(uid):
 
 # Route - The ability to post a reply to a message
 @app.route('/MessagingApp_DB/groupchats/<int:gid>/messages/reply', methods=['GET','POST'])
-def replyToMessageyGroupChatId(gid):
+def replyToMessageGroupChatId(gid):
     if request.method == 'POST':
         return GroupChatsHandler().replyToMessage(gid, request.json)
 
