@@ -4,6 +4,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
         this.messageList = [];
         this.counter  = 2;
         this.newText = "";
+        this.search = "";
         var groupName = $scope.gname;
         var gid = $scope.gid;
         var uid = $scope.user.uid;
