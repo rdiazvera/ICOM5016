@@ -1,91 +1,18 @@
 # Database Project: MessagingApp_DB
 
-Backend of an application used for messaging in a social context.
+The application is organized in three broad layers:
+1. Main - the main app module takes care to setup the routes for the REST API and calling the proper handler objects to process the request.
+2. Handlers - the handler modules takes care of implementing the logic of each REST call. In this sense, a handler is a Facade for accessing a given operation on a data collection. Each object handles a particular type of request for a data collection (e.g. Parts). The handlers rely upon the Data Access Objects (DAOs) to extact data from the database. The handlers encode the responses to the client with JSON and provide the appropriate HTTP response code.
+3. DAOs - the Data Access Objects (DAOs) take care of moving data in and out of the database engine by making SQL queries and wrapping the results in the objects and object list of appropriate types.
 
 ## Developers
 * Miguel Negrón
 * Rogelio Díaz
 * Anderson Román
 
-## Available Routes
-These routes will be use to get data from the database.
-
-### General Purposes Routes
-These routes will be used for login/signin information and initial home page.
-```
-/
-/MessagingApp_DB/home/
-/MessagingApp_DB/login/
-/MessagingApp_DB/signup/
-```
-
-### Statistics Purposes Routes
-These routes will be used for getting statistics from the application.
-```
-/MessagingApp_DB/statistics/
-/MessagingApp_DB/statistics/trending/
-/MessagingApp_DB/statistics/messages/
-/MessagingApp_DB/statistics/replies/
-/MessagingApp_DB/statistics/likes/
-/MessagingApp_DB/statistics/dislikes/
-/MessagingApp_DB/statistics/activeusers/
-```
-
-### Message Table Routes
-These routes will be used for getting data from the Messages Table.
-```
-/MessagingApp_DB/messages/
-/MessagingApp_DB/messages?id=(mid)/
-/MessagingApp_DB/messages/(mid)/
-/MessagingApp_DB/messages/owner/(ownerid)/
-/MessagingApp_DB/messages/groupchat/(groupchatid)/
-/MessagingApp_DB/messages/date/(date)/
-```
-
-### User Table Routes
-These routes will be used for getting data from the Users Table.
-```
-/MessagingApp_DB/users/
-/MessagingApp_DB/users/(uid)/
-/MessagingApp_DB/users/email/(emailid)/
-/MessagingApp_DB/users/phone/(phoneid)/
-```
-
-### GroupChats Table Routes
-These routes will be used for getting data from the GroupChats Table.
-```
-/MessagingApp_DB/groupchats/
-/MessagingApp_DB/groupchats/(gid)/
-/MessagingApp_DB/groupchats/owner/(ownerid)/
-```
-
-### Members Table Routes
-These routes will be used for getting data from the Members Table.
-```
-/MessagingApp_DB/members/
-/MessagingApp_DB/members/(mid)/
-```
-
-### Reactions Table Routes
-These routes will be used for getting data from the Reactions Table.
-```
-/MessagingApp_DB/reactions/
-/MessagingApp_DB/reactions/(rid)/
-/MessagingApp_DB/reactions/type/(type)/
-```
-
-### Replies Table Routes
-These routes will be used for getting data from the Replies Table.
-```
-/MessagingApp_DB/replies/
-/MessagingApp_DB/replies/(rid)/
-```
-
-### Hashtags Table Routes
-These routes will be used for getting data from the Hashtags Table.
-```
-/MessagingApp_DB/hashtags/
-/MessagingApp_DB/hashtags/(hid)/
-```
-
-
+## Requirements
+You need the following software installed to run this application:
+1. PostgreSQL - database engine
+2. Pyscopg2 - library to connect to PostgreSQL form Python
+3. DataGrip - app to manage the databases 
+4. Flask - web bases framework to implement the REST API.
