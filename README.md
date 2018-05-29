@@ -8,7 +8,6 @@ The application is organized in three broad layers:
 ## Developers
 * Miguel Negrón
 * Rogelio Díaz
-* Anderson Román
 
 ## Requirements
 You need the following software installed to run this application:
